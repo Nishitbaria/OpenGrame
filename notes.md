@@ -1,0 +1,1 @@
+When you want to display an image on desktop but hide it on mobile, use the `hidden` property. This property will hide the image on mobile screens. If you want to show it on larger screens, use `xl:block`.
