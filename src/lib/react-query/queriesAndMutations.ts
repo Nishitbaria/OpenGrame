@@ -6,10 +6,12 @@ import {
 } from "@tanstack/react-query";
 import {
   CreateUserAccount,
+  createPost,
   signInAccount,
   signOutAccount,
 } from "../appwrite/api";
-import { INewUser } from "../../types/index.ts";
+import { INewPost, INewUser } from "../../types/index.ts";
+import { QUERY_KEYS } from "./queryKeys.ts";
 
 //this function is use to create a new user account
 export const useCreateUserAccount = () => {
@@ -32,4 +34,14 @@ export const useSignOutAccount = () => {
   });
 };
 
-
+export const useCreatePost = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (post: INewPost) => createPost(post),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      });
+    },
+  });
+};

@@ -20,7 +20,7 @@ import {
   useCreateUserAccount,
   useSignInAccount,
 } from "@/lib/react-query/queriesAndMutations.js";
-import { userUserContext } from "@/context/AuthContext.js";
+import { useUserContext } from "@/context/AuthContext.js";
 
 const SignupForm = () => {
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -38,7 +38,7 @@ const SignupForm = () => {
   const { mutateAsync: signInAccount, isPending: isSigningIn } =
     useSignInAccount();
 
-  const { checkAuthUser, isLoading: isUserLoading } = userUserContext();
+  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
   const navigate = useNavigate();
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {

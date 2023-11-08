@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
-import { userUserContext } from "@/context/AuthContext";
+import { useUserContext } from "@/context/AuthContext";
 import { sidebarLinks } from "@/constants";
 import { INavLink } from "@/types";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
-  const { user } = userUserContext();
+  const { user } = useUserContext();
   const { mutate: signOut, isSuccess } = useSignOutAccount();
   const { pathname } = useLocation();
   useEffect(() => {

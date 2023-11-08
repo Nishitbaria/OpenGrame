@@ -4,8 +4,10 @@ import App from "./App.tsx";
 import "./globals.css";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import AuthProvider from "./context/AuthContext.tsx";
+import { default as animationData } from '../animation-with-blackjack-and-hooks.json'
+
 import QueryProvider from "./lib/react-query/QueryProvider.tsx";
+import { AuthProvider } from "./context/AuthContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
