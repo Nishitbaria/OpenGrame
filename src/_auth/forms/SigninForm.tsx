@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Loader from "../../components/shared/Loader.jsx";
+import Loader from "../../components/shared/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import { CreateUserAccount } from "@/lib/appwrite/api.js";
 import {
