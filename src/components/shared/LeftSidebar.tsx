@@ -35,7 +35,7 @@ const LeftSidebar = () => {
             alt="profile"
           />
           <div className="flex flex-col">
-            <p className="body-bold"> {user.name || `Nishibaria  `} </p>
+            <p className="body-bold"> {user.name} </p>
             <p className="small-regular text-light-3">@{user.username}</p>
           </div>
         </Link>
