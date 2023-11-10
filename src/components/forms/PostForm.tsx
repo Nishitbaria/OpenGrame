@@ -1,4 +1,3 @@
-import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -19,7 +18,6 @@ import { PostValidation } from "@/lib/validation";
 import { Models } from "appwrite";
 import {
   useCreatePost,
-  useDeletePost,
   useUpdatePost,
 } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
@@ -35,8 +33,6 @@ export default function PostForm({ post, action }: PostFormProps) {
     useCreatePost();
   const { mutateAsync: updatePost, isPending: isLoadingUpdate } =
     useUpdatePost();
-  const { mutateAsync: deletePost, isPending: isLoadingDelete } =
-    useDeletePost();
 
   const { user } = useUserContext();
   const { toast } = useToast();

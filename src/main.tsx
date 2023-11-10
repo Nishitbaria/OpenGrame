@@ -4,7 +4,6 @@ import App from "./App.tsx";
 import "./globals.css";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import { default as animationData } from '../animation-with-blackjack-and-hooks.json'
 
 import QueryProvider from "./lib/react-query/QueryProvider.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";

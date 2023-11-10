@@ -1,5 +1,3 @@
-import React from "react";
-
 export type SearchResultProps = {
   isSearchFetching: boolean;
   searchedPosts: any;

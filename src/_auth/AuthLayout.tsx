@@ -1,12 +1,8 @@
-import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 
 const AuthLayout = () => {
   const isAuthenticated = false; // Set this to true when you want to display the content
 
-const isLoding = false ;
-
-  
   return (
     <>
       {isAuthenticated ? (
@@ -18,7 +14,6 @@ const isLoding = false ;
           <section className="flex flex-1 justify-center items-center flex-row py-10">
             <Outlet />
           </section>
-         
 
           <img
             src="/assets/images/side-img.svg"

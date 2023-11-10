@@ -15,11 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Loader from "../../components/shared/Loader";
 import { Link, useNavigate } from "react-router-dom";
-import { CreateUserAccount } from "@/lib/appwrite/api.js";
-import {
-  useCreateUserAccount,
-  useSignInAccount,
-} from "@/lib/react-query/queriesAndMutations.js";
+import { useSignInAccount } from "@/lib/react-query/queriesAndMutations.js";
 import { useUserContext } from "@/context/AuthContext.js";
 
 const SigninForm = () => {
@@ -34,7 +30,7 @@ const SigninForm = () => {
   const { mutateAsync: signInAccount, isPending: isSigningIn } =
     useSignInAccount();
 
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
   const navigate = useNavigate();
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SigninValidation>) {

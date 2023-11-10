@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
@@ -29,7 +29,8 @@ const Topbar = () => {
           <Button
             variant="ghost"
             className="shad-button_ghost"
-            onClick={() => signOut()}>
+            onClick={() => signOut()}
+          >
             <img src="/assets/icons/logout.svg" alt="logout" />
           </Button>
           <Link to={`/profile/${user.id}`} className="flex-center gap-3">

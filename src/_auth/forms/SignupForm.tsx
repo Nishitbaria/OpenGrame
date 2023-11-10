@@ -15,7 +15,6 @@ import {
 import { Input } from "@/components/ui/input";
 import Loader from "../../components/shared/Loader";
 import { Link, useNavigate } from "react-router-dom";
-import { CreateUserAccount } from "@/lib/appwrite/api.js";
 import {
   useCreateUserAccount,
   useSignInAccount,
@@ -35,14 +34,14 @@ const SignupForm = () => {
 
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount } =
     useCreateUserAccount();
-  const { mutateAsync: signInAccount, isPending: isSigningIn } =
+  const { mutateAsync: signInAccount, isPending: isSigningInUser } =
     useSignInAccount();
 
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
   const navigate = useNavigate();
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
-    const newUser = await CreateUserAccount(values);
+    const newUser = await createUserAccount(values);
     if (!newUser) {
       return toast({
         title: "Sign up faild please try again",
@@ -148,13 +147,13 @@ const SignupForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary">
-            {isCreatingAccount ? (
+            {isUserLoading || isCreatingAccount || isSigningInUser ? (
               <div className="flex-center gap-2 ">
                 {" "}
                 <Loader /> Loding....
               </div>
             ) : (
-              "Sign Ups"
+              "Sign-up"
             )}
           </Button>
           <p className="text-small-regular text-light-2 text-center mt-2">

@@ -22,7 +22,7 @@ import {
 } from "../appwrite/api";
 import { INewPost, INewUser, IUpdatePost } from "../../types/index.ts";
 import { QUERY_KEYS } from "./queryKeys.ts";
-import { string } from "zod";
+
 
 //this function is use to create a new user account
 export const useCreateUserAccount = () => {

@@ -1,6 +1,6 @@
 import { ID, Query } from "appwrite";
 import { appwriteConfig, account, databases, storage, avatars } from "./config";
-import { IUpdatePost, INewPost, INewUser, IUpdateUser } from "@/types";
+import { IUpdatePost, INewPost, INewUser } from "@/types";
 
 //this function is use to create a new user account
 export async function CreateUserAccount(user: INewUser) {

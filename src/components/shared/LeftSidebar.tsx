@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
@@ -78,7 +78,7 @@ const LeftSidebar = () => {
           <p className="small-medium lg-base-medium"> Logout </p>
         </Button>
         <Link to="/settings" className="shad-button_ghost">
-          <img src="/public/assets/icons/Settings.svg" alt="Settings" />
+          <img src="/assets/icons/Settings.svg" alt="Settings" />
           <p className="small-medium lg-base-medium"> Settings </p>
         </Link>
       </div>
