@@ -3,7 +3,8 @@
 <hr>
 
 
-![image](https://github.com/Nishitbaria/OpenGrame/assets/85815172/225cbc77-b467-4dc2-8b75-d7d621f733e3)
+![image](https://github.com/Nishitbaria/OpenGrame/assets/85815172/116dabe8-9220-4561-b828-fb2b2ff47284)
+
 
 
 
