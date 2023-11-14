@@ -31,7 +31,7 @@ import {
   IUpdateUser,
 } from "../../types/index.ts";
 import { QUERY_KEYS } from "./queryKeys.ts";
-import { on } from "events";
+
 
 //this function is use to create a new user account
 export const useCreateUserAccount = () => {

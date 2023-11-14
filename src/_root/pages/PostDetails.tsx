@@ -25,8 +25,13 @@ const PostDetails = () => {
   );
 
   const handleDeletePost = () => {
-    deletePost({ postId: id, imageId: post?.imageId });
-    navigate(-1);
+    if (id && post?.imageId) {
+      deletePost({ postId: id, imageId: post.imageId });
+      navigate(-1);
+    } else {
+      // Handle the case where id or post.imageId is undefined
+      console.error('postId or imageId is undefined');
+    }
   };
 
   return (
