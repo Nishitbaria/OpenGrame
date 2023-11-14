@@ -23,8 +23,6 @@ const App = () => {
       <Routes>
         {/* Public Routes*/}
 
-        <Route path="/" element={<HomePage />} />
-
         <Route element={<AuthLayout />}>
           <Route path="/sign-in" element={<SigninForm />} />
           <Route path="/sign-up" element={<SignupForm />} />
@@ -32,7 +30,8 @@ const App = () => {
 
         {/* Private Routes*/}
         <Route element={<RootLayout />}>
-          <Route path="/Home" element={<Home />} />
+          <Route index element={<Home />} />
+          <Route path="/Homepage" element={<HomePage />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/all-users" element={<AllUsers />} />
