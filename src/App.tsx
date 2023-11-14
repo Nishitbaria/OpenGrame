@@ -15,12 +15,14 @@ import PostDetails from "./_root/pages/PostDetails";
 import Profile from "./_root/pages/Profile";
 import UpdateProfile from "./_root/pages/UpdateProfile";
 import Settings from "./components/shared/Settings";
+import HomePage from "./_root/pages/HomePage";
 
 const App = () => {
   return (
     <main className="flex h-screen">
       <Routes>
         {/* Public Routes*/}
+        <Route path="/HomePage" element={<HomePage />} />
         <Route element={<AuthLayout />}>
           <Route path="/sign-in" element={<SigninForm />} />
           <Route path="/sign-up" element={<SignupForm />} />
