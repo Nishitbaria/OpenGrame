@@ -14,6 +14,7 @@ import {
   getPostById,
   getRecentPosts,
   getUserById,
+  getUserPosts,
   getUsers,
   likePost,
   savePost,
@@ -30,6 +31,7 @@ import {
   IUpdateUser,
 } from "../../types/index.ts";
 import { QUERY_KEYS } from "./queryKeys.ts";
+import { on } from "events";
 
 //this function is use to create a new user account
 export const useCreateUserAccount = () => {
@@ -242,5 +244,31 @@ export const useGetUsers = (limit?: number) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_USERS],
     queryFn: () => getUsers(limit),
+  });
+};
+
+export const useUserDeletePost = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ postId, imageId }: { postId?: string; imageId: string }) =>
+      deletePost(postId, imageId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
+      });
+    },
+    onError: (error) => {
+      // Handle the error here
+      console.error(error);
+    },
+  });
+};
+
+export const useGetUserPosts = (userId?: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
+    queryFn: () => getUserPosts(userId),
+    enabled: !!userId,
   });
 };

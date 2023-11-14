@@ -11,7 +11,6 @@ export async function CreateUserAccount(user: INewUser) {
       user.password,
       user.name
     );
-
     if (!newAccount) throw Error;
 
     const avatarUrl = avatars.getInitials(user.name);
@@ -345,18 +344,24 @@ export async function updatePost(post: IUpdatePost) {
   }
 }
 
-export async function deletePost(postId: string, imageId: string) {
-  if (!postId || !imageId) throw Error;
+export async function deletePost(postId?: string, imageId?: string) {
+  if (!postId || !imageId) return;
 
   try {
-    await databases.deleteDocument(
+    const statusCode = await databases.deleteDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
       postId
     );
-    return { status: "ok" };
-  } catch (error) {}
-  console.log(postId, imageId);
+
+    if (!statusCode) throw Error;
+
+    await deleteFile(imageId);
+
+    return { status: "Ok" };
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
@@ -489,6 +494,24 @@ export async function getUsers(limit?: number) {
     if (!users) throw Error;
 
     return users;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getUserPosts(userId?: string) {
+  if (!userId) return;
+
+  try {
+    const post = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      [Query.equal("creator", userId), Query.orderDesc("$createdAt")]
+    );
+
+    if (!post) throw Error;
+
+    return post;
   } catch (error) {
     console.log(error);
   }
