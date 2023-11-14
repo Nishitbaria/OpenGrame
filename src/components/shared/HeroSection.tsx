@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -16,9 +17,9 @@ const HeroSection = () => {
           amazing content, create and share posts, and connect with a global
           community.
         </p>
-        <button className="bg-primary-500 text-white font-medium py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
+        <Link to={"/Home"} className="bg-primary-500 text-white font-medium py-2 px-4 rounded transition-all hover:bg-indigo-600 active:scale-95">
           Get Started
-        </button>
+        </Link>
       </div>
       <ShuffleGrid />
     </section>

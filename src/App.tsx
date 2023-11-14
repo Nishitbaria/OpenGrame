@@ -22,7 +22,9 @@ const App = () => {
     <main className="flex h-screen">
       <Routes>
         {/* Public Routes*/}
-        <Route path="/HomePage" element={<HomePage />} />
+
+        <Route path="/" element={<HomePage />} />
+
         <Route element={<AuthLayout />}>
           <Route path="/sign-in" element={<SigninForm />} />
           <Route path="/sign-up" element={<SignupForm />} />
@@ -30,7 +32,7 @@ const App = () => {
 
         {/* Private Routes*/}
         <Route element={<RootLayout />}>
-          <Route index element={<Home />} />
+          <Route path="/Home" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/all-users" element={<AllUsers />} />
