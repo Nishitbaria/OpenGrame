@@ -17,10 +17,6 @@ const GridPostList = ({
 }: GridPostListProps) => {
   const { user } = useUserContext();
 
-  console.log("...........................................................");
-  console.log(posts[1]?.creator); // Use optional chaining to handle potential undefined values
-  console.log("...........................................................");
-
   return (
     <ul className="grid-container">
       {posts.map((post) => (
@@ -44,10 +40,12 @@ const GridPostList = ({
                   alt="creator"
                   className="w-8 h-8 rounded-full"
                 />
-                <p className="line-clamp-1">{post.creator?.$id}</p> {/* Use optional chaining for '$id' */}
+                <p className="line-clamp-1">{post.creator?.$id}</p>{" "}
+                {/* Use optional chaining for '$id' */}
               </div>
             )}
-            {showStats && <PostStats post={post} userId={user?.id} />} {/* Use optional chaining for 'user' */}
+            {showStats && <PostStats post={post} userId={user?.id} />}{" "}
+            {/* Use optional chaining for 'user' */}
           </div>
         </li>
       ))}
