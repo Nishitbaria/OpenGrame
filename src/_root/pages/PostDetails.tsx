@@ -1,9 +1,12 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 
-
 import { multiFormatDateString } from "@/lib/utils";
 import { useUserContext } from "@/context/AuthContext";
-import { useDeletePost, useGetPostById, useGetUserPosts } from "@/lib/react-query/queriesAndMutations";
+import {
+  useDeletePost,
+  useGetPostById,
+  useGetUserPosts,
+} from "@/lib/react-query/queriesAndMutations";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/shared/Loader";
 import GridPostList from "@/components/shared/GridPostList";
@@ -30,17 +33,18 @@ const PostDetails = () => {
       navigate(-1);
     } else {
       // Handle the case where id or post.imageId is undefined
-      console.error('postId or imageId is undefined');
+      console.error("postId or imageId is undefined");
     }
   };
 
   return (
     <div className="post_details-container">
-      <div className="hidden md:flex max-w-5xl w-full">
+      <div className="hidden w-full max-w-5xl md:flex">
         <Button
           onClick={() => navigate(-1)}
           variant="ghost"
-          className="shad-button_ghost">
+          className="shad-button_ghost"
+        >
           <img
             src={"/assets/icons/back.svg"}
             alt="back"
@@ -62,23 +66,24 @@ const PostDetails = () => {
           />
 
           <div className="post_details-info">
-            <div className="flex-between w-full">
+            <div className="w-full flex-between">
               <Link
                 to={`/profile/${post?.creator.$id}`}
-                className="flex items-center gap-3">
+                className="flex items-center gap-3"
+              >
                 <img
                   src={
                     post?.creator.imageUrl ||
                     "/assets/icons/profile-placeholder.svg"
                   }
                   alt="creator"
-                  className="w-8 h-8 lg:w-12 lg:h-12 rounded-full"
+                  className="w-8 h-8 rounded-full lg:w-12 lg:h-12"
                 />
-                <div className="flex gap-1 flex-col">
+                <div className="flex flex-col gap-1">
                   <p className="base-medium lg:body-bold text-light-1">
                     {post?.creator.name}
                   </p>
-                  <div className="flex-center gap-2 text-light-3">
+                  <div className="gap-2 flex-center text-light-3">
                     <p className="subtle-semibold lg:small-regular ">
                       {multiFormatDateString(post?.$createdAt)}
                     </p>
@@ -90,10 +95,11 @@ const PostDetails = () => {
                 </div>
               </Link>
 
-              <div className="flex-center gap-4">
+              <div className="gap-4 flex-center">
                 <Link
                   to={`/update-post/${post?.$id}`}
-                  className={`${user.id !== post?.creator.$id && "hidden"}`}>
+                  className={`${user.id !== post?.creator.$id && "hidden"}`}
+                >
                   <img
                     src={"/assets/icons/edit.svg"}
                     alt="edit"
@@ -107,7 +113,8 @@ const PostDetails = () => {
                   variant="ghost"
                   className={`ost_details-delete_btn ${
                     user.id !== post?.creator.$id && "hidden"
-                  }`}>
+                  }`}
+                >
                   <img
                     src={"/assets/icons/delete.svg"}
                     alt="delete"
@@ -118,15 +125,16 @@ const PostDetails = () => {
               </div>
             </div>
 
-            <hr className="border w-full border-dark-4/80" />
+            <hr className="w-full border border-dark-4/80" />
 
             <div className="flex flex-col flex-1 w-full small-medium lg:base-regular">
               <p>{post?.caption}</p>
               <ul className="flex gap-1 mt-2">
-                {post?.tags.map((tag: string, index: string) => (
+                {post?.tags.map((tag: string, index: number) => (
                   <li
-                    key={`${tag}${index}`}
-                    className="text-light-3 small-regular">
+                    key={`${tag}-${index}`} // Use a unique identifier for the key
+                    className="text-light-3 small-regular"
+                  >
                     #{tag}
                   </li>
                 ))}
@@ -141,9 +149,9 @@ const PostDetails = () => {
       )}
 
       <div className="w-full max-w-5xl">
-        <hr className="border w-full border-dark-4/80" />
+        <hr className="w-full border border-dark-4/80" />
 
-        <h3 className="body-bold md:h3-bold w-full my-10">
+        <h3 className="w-full my-10 body-bold md:h3-bold">
           More Related Posts
         </h3>
         {isUserPostLoading || !relatedPosts ? (

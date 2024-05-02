@@ -11,14 +11,14 @@ const AuthLayout = () => {
         </>
       ) : (
         <>
-          <div className="flex flex-1 justify-center items-center flex-row py-10">
+          <div className="flex flex-row items-center justify-center flex-1 py-10">
             <Outlet />
           </div>
 
           <img
             src="/assets/images/side-img.png"
             alt="logo"
-            className="hidden xl:block h-screen w-1/2 object-cover bg-no-repeat"
+            className="hidden object-cover w-1/2 h-screen bg-no-repeat xl:block"
           />
         </>
       )}

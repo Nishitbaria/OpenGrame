@@ -24,8 +24,8 @@ import { useUserContext } from "@/context/AuthContext";
 import { useToast } from "../ui/use-toast";
 
 type PostFormProps = {
-  post?: Models.Document;
-  action: "Create" | "Update";
+  readonly post?: Models.Document;
+  readonly action: "Create" | "Update";
 };
 
 export default function PostForm({ post, action }: PostFormProps) {
@@ -83,7 +83,7 @@ export default function PostForm({ post, action }: PostFormProps) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="flex flex-col gap-9 w-full max-w-5xl"
+        className="flex flex-col w-full max-w-5xl gap-9"
       >
         <FormField
           control={form.control}
@@ -152,7 +152,7 @@ export default function PostForm({ post, action }: PostFormProps) {
             </FormItem>
           )}
         />
-        <div className="flex gap-4 items-center justify-end">
+        <div className="flex items-center justify-end gap-4">
           <Button type="button" className="shad-button_dark_4">
             Cancel
           </Button>
