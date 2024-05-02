@@ -1,6 +1,7 @@
-import { ID, Query } from "appwrite";
+import { ID, Query, ImageGravity } from "appwrite";
 import { appwriteConfig, account, databases, storage, avatars } from "./config";
 import { IUpdatePost, INewPost, INewUser, IUpdateUser } from "@/types";
+
 
 //this function is use to create a new user account
 export async function CreateUserAccount(user: INewUser) {
@@ -54,8 +55,10 @@ export async function saveUserToDB(user: {
 }
 // this function is use to sign in the user
 export async function signInAccount(user: { email: string; password: string }) {
+
+  console.log(user, "Printing User for Testing Perpose")
   try {
-    const session = await account.createEmailSession(user.email, user.password);
+    const session = await account.createEmailPasswordSession(user.email, user.password);
 
     return session;
   } catch (error) {
@@ -171,7 +174,7 @@ export function getFilePreview(fileId: string) {
       fileId,
       2000,
       2000,
-      "top",
+      ImageGravity.Top,
       100
     );
 
@@ -365,6 +368,7 @@ export async function deletePost(postId?: string, imageId?: string) {
 }
 
 export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(9)];
 
   if (pageParam) {

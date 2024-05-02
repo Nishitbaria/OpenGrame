@@ -11,9 +11,9 @@ const AuthLayout = () => {
         </>
       ) : (
         <>
-          <section className="flex flex-1 justify-center items-center flex-row py-10">
+          <div className="flex flex-1 justify-center items-center flex-row py-10">
             <Outlet />
-          </section>
+          </div>
 
           <img
             src="/assets/images/side-img.png"
