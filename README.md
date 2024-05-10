@@ -71,3 +71,17 @@
    ```
 
    The app should now be running at [http://localhost:5173](http://localhost:5173).
+
+5. Example .env You can be used in your localhost
+
+   ```
+VITE_APPWRITE_PROJECT_ID="663e1d6f0023b552e5d1"
+VITE_APPWRITE_URL="https://cloud.appwrite.io/v1"
+VITE_APPWRITE_STORAGE_ID="65478ceca6d8a49b3cf1"
+VITE_APPWRITE_DATABASE_ID="3j22cy28uc3"
+VITE_APPWRITE_SAVES_COLLECTION_ID="65479a44782ab930d6f3"
+VITE_APPWRITE_USERS_COLLECTION_ID="65479b3f3ff36d0c3fa6"
+VITE_APPWRITE_POSTS_COLLECTION_ID="65479a1224b7d12ccb6e"
+   ```
+
+
