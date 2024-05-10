@@ -11,9 +11,39 @@ const LeftSidebar = () => {
   const { user } = useUserContext();
   const { mutate: signOut, isSuccess } = useSignOutAccount();
   const { pathname } = useLocation();
+
   useEffect(() => {
     if (isSuccess) navigate(0);
-  }, [isSuccess]);
+  }, [isSuccess, navigate]);
+
+  const handleInviteClick = () => {
+    const currentURL = "https://opengram.vercel.app/sign-in";
+    navigator.clipboard.writeText(`Hey! I am inviting you to join this amazing Social Media Application: ${currentURL}`)
+      .then(() => {
+        const popup = document.createElement('div');
+        popup.textContent = "Invitation copied to clipboard!";
+        popup.style.cssText = `
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background-color: white;
+          color: black;
+          padding: 10px 20px;
+          border-radius: 5px;
+          z-index: 9999;
+        `;
+        document.body.appendChild(popup);
+
+        setTimeout(() => {
+          document.body.removeChild(popup);
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("Failed to copy URL: ", error);
+        alert("Failed to copy URL!");
+      });
+  };
 
   return (
     <nav className="leftsidebar">
@@ -33,7 +63,7 @@ const LeftSidebar = () => {
             alt="profile"
           />
           <div className="flex flex-col">
-            <p className="body-bold"> {user.name} </p>
+            <p className="body-bold">{user.name}</p>
             <p className="small-regular text-light-3">@{user.username}</p>
           </div>
         </Link>
@@ -45,21 +75,18 @@ const LeftSidebar = () => {
             return (
               <li
                 key={link.label}
-                className={`leftsidebar-link group  ${
-                  isActive && "bg-primary-500"
-                } `}
+                className={`leftsidebar-link group ${isActive && "bg-primary-500"
+                  }`}
               >
                 <NavLink
                   to={link.route}
                   className="flex gap-4 items-center p-4"
                 >
-                  {" "}
                   <img
                     src={link.imgURL}
                     alt={link.label}
-                    className={`group-hover:invert-white ${
-                      isActive && "invert-white"
-                    }`}
+                    className={`group-hover:invert-white ${isActive && "invert-white"
+                      }`}
                   />
                   {link.label}
                 </NavLink>
@@ -68,6 +95,17 @@ const LeftSidebar = () => {
           })}
         </ul>
       </div>
+
+      <div className="p-4">
+        <button
+          className="shad-button_ghost"
+          onClick={handleInviteClick}
+        >
+          <img src="/assets/icons/invite.svg" alt="Invite" />
+          <p className="small-medium lg-base-medium"> Invite Your Friend </p>
+        </button>
+      </div>
+
       <div className="flex flex-center gap-1">
         <Button
           variant="ghost"
