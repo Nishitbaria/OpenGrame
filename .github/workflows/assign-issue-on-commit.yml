@@ -1,12 +1,12 @@
-name: Assign Issue on Commit
+name: Assign Issue and Comment on Mention
 
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
-  assign:
+  assign_and_comment:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,6 @@ jobs:
       - name: Parse commit messages
         id: parse_messages
         run: |
-          # Extract commit messages since last commit
           git log -1 --pretty=%B > commit_message.txt
           echo "Commit Message: $(cat commit_message.txt)"
 
@@ -31,13 +30,13 @@ jobs:
             if (mentions) {
               for (const mention of mentions) {
                 const assignee = mention.substring(1); // Remove '@'
-                const issue = await github.issues.listForRepo({
+                const { data: issues } = await github.issues.listForRepo({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   state: 'open',
-                  creator: context.actor, // Only check open issues created by the actor (assuming the owner)
-                  labels: 'bug' // Add labels to narrow down the search if necessary
+                  creator: context.actor
                 });
+                const issue = issues.find(issue => issue.title.includes("#")); // Assuming issue title contains '#' for reference
                 if (issue) {
                   await github.issues.addAssignees({
                     owner: context.repo.owner,
@@ -45,8 +44,7 @@ jobs:
                     issue_number: issue.number,
                     assignees: [assignee]
                   });
-                  
-                  // Add a comment mentioning the assigned user
+
                   await github.issues.createComment({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
