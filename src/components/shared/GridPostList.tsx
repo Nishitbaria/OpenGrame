@@ -17,7 +17,6 @@ const GridPostList = ({
 }: GridPostListProps) => {
   const { user } = useUserContext();
 
-
   return (
     <ul className="grid-container">
       {posts.map((post) => (
@@ -26,7 +25,7 @@ const GridPostList = ({
             <img
               src={post.imageUrl} // Use 'post' instead of 'posts[0]'
               alt="post"
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover hover:scale-110"
             />
           </Link>
 
@@ -41,10 +40,12 @@ const GridPostList = ({
                   alt="creator"
                   className="w-8 h-8 rounded-full"
                 />
-                <p className="line-clamp-1">{post.creator?.name}</p> {/* Use optional chaining for '$id' */}
+                <p className="line-clamp-1">{post.creator?.name}</p>{" "}
+                {/* Use optional chaining for '$id' */}
               </div>
             )}
-            {showStats && <PostStats post={post} userId={user?.id} />} {/* Use optional chaining for 'user' */}
+            {showStats && <PostStats post={post} userId={user?.id} />}{" "}
+            {/* Use optional chaining for 'user' */}
           </div>
         </li>
       ))}
