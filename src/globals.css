@@ -270,7 +270,7 @@
   }
   
   .shad-button_primary {
-    @apply bg-primary-500 hover:bg-darkpink text-light-1 flex gap-2 !important;
+    @apply bg-primary-500 hover:bg-hover-primary-500 text-light-1 flex gap-2 !important;
   }
 
   .shad-button_dark_4 {
