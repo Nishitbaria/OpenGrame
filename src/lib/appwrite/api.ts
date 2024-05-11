@@ -2,7 +2,6 @@ import { ID, Query, ImageGravity } from "appwrite";
 import { appwriteConfig, account, databases, storage, avatars } from "./config";
 import { IUpdatePost, INewPost, INewUser, IUpdateUser } from "@/types";
 
-
 //this function is use to create a new user account
 export async function CreateUserAccount(user: INewUser) {
   try {
@@ -401,6 +400,24 @@ export async function searchPosts(searchTerm: string) {
     if (!posts) throw Error;
 
     return posts;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// ============================== GET USER BY USERNAME
+export async function searchUsers(searchTerm: string) {
+  try {
+    console.log("searchTerm", searchTerm);
+    const Users = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [Query.search("username", searchTerm)]
+    );
+
+    if (!Users) throw Error;
+
+    return Users;
   } catch (error) {
     console.log(error);
   }
