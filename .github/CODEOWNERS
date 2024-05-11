@@ -1,0 +1,33 @@
+# Codeowners file for Open grame repository
+
+# This file defines the code owners for the Opengrame repository. Code owners are responsible for reviewing and approving any changes to the code in their respective areas
+
+## Files
+
+README.md @Nishitbaria
+.gitignore @Nishitbaria
+LICENSE @Nishitbaria
+.github/workflows/ @Nishitbaria
+app/ @Nishitbaria
+components/ @Nishitbaria
+lib/ @Nishitbaria
+tests/ @Nishitbaria
+
+## Directories
+
+.github/ @Nishitbaria
+node_modules/ @Nishitbaria
+public/ @Nishitbaria
+.env/ @Nishitbaria
+
+## Special cases
+
+# Any changes to the CODEOWNERS file must be approved by @Nishitbaria
+
+# Any changes to the .gitattributes file must be approved by @Nishitbaria
+
+# Any changes to the .gitignore file must be approved by @Nishitbaria
+
+## Contact information
+
+# If you have any questions about the CODEOWNERS file, please contact @Nishitbaria
