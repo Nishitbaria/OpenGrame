@@ -20,18 +20,21 @@ const GridPostList = ({
   return (
     <ul className="grid-container">
       {posts.map((post) => (
-        <li key={post.$id} className="relative min-w-80 h-80">
-          <Link to={`/posts/${post.$id}`} className="grid-post_link">
+        <li key={post.$id} className="relative min-w-80 h-80 group">
+          <Link
+            to={`/posts/${post.$id}`}
+            className="grid-post_link opacity-80 transition duration-300 ease-in-out group-hover:opacity-100"
+          >
             <img
               src={post.imageUrl} // Use 'post' instead of 'posts[0]'
               alt="post"
-              className="h-full w-full object-cover hover:scale-110"
+              className="h-full w-full object-cover animate-fade-in scale-100 transform object-center opacity-100 transition duration-300 group-hover:scale-110"
             />
           </Link>
 
           <div className="grid-post_user">
             {showUser && (
-              <div className="flex items-center justify-start gap-2 flex-1">
+              <div className="flex items-center justify-start gap-2 flex-1 transition duration-300 ease-in-out hover:translate-y-1 hover:translate-x-3 group-hover:scale-105">
                 <img
                   src={
                     post.creator?.imageUrl || // Use optional chaining for 'creator'
