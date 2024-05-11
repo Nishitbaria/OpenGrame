@@ -268,12 +268,9 @@
   .shad-textarea {
     @apply h-36 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
   }
-  .bg-darkpink-500 {
-    background-color: #d02d5e; /* Replace with your desired dark pink color */
-  }
-  /* Button */
+  
   .shad-button_primary {
-    @apply bg-primary-500 hover:bg-darkpink-500 text-light-1 flex gap-2 !important;
+    @apply bg-primary-500 hover:bg-darkpink text-light-1 flex gap-2 !important;
   }
 
   .shad-button_dark_4 {
