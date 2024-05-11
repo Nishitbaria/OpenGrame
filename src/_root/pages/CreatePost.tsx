@@ -1,5 +1,5 @@
 import PostForm from "@/components/forms/PostForm";
-import Image from "/asset/icons/add-post.svg";
+import Image from "/assets/icons/add-post.svg";
 const CreatePost = () => {
   return (
     <div className="flex flex-1">
