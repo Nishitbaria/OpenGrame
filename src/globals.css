@@ -108,6 +108,10 @@
     background: #7878a3;
   }
 
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
   .common-container {
     @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
   }

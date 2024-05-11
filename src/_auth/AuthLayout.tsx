@@ -11,7 +11,7 @@ const AuthLayout = () => {
         </>
       ) : (
         <>
-          <div className="flex flex-row items-center justify-center flex-1 py-10">
+          <div className="h-screen overflow-auto no-scrollbar flex flex-row items-center justify-center flex-1 py-10">
             <Outlet />
           </div>
 
