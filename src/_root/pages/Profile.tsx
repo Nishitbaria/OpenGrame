@@ -62,8 +62,8 @@ const Profile = () => {
 
             <div className="z-20 flex flex-wrap items-center justify-center gap-8 mt-10 xl:justify-start">
               <StatBlock value={currentUser.posts.length} label="Posts" />
-              <StatBlock value={20} label="Followers" />
-              <StatBlock value={20} label="Following" />
+              <StatBlock value={0} label="Followers" />
+              <StatBlock value={0} label="Following" />
             </div>
 
             <p className="max-w-screen-sm text-center small-medium md:base-medium xl:text-left mt-7">

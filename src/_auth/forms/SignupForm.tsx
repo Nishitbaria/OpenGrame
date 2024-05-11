@@ -150,7 +150,7 @@ const SignupForm = () => {
             {isUserLoading || isCreatingAccount || isSigningInUser ? (
               <div className="flex-center gap-2 ">
                 {" "}
-                <Loader /> Loding....
+                <Loader /> Loading....
               </div>
             ) : (
               "Sign-up"
