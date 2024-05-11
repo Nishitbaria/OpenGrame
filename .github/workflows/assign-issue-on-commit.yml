@@ -3,7 +3,7 @@ name: Assign Issue on Commit
 on:
   push:
     branches:
-      - main  # Adjust as needed
+      - main 
 
 jobs:
   assign:
@@ -44,6 +44,14 @@ jobs:
                     repo: context.repo.repo,
                     issue_number: issue.number,
                     assignees: [assignee]
+                  });
+                  
+                  // Add a comment mentioning the assigned user
+                  await github.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    body: `Hey @${assignee}, You can start working on this issue. Please follow the contribution guidelines mentioned in the repository link: [CONTRIBUTING.md](https://github.com/Nishitbaria/OpenGrame/blob/main/CONTRIBUTING.md)`
                   });
                 }
               }
