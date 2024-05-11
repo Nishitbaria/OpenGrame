@@ -1,0 +1,50 @@
+name: Assign Issue on Commit
+
+on:
+  push:
+    branches:
+      - main  # Adjust as needed
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Parse commit messages
+        id: parse_messages
+        run: |
+          # Extract commit messages since last commit
+          git log -1 --pretty=%B > commit_message.txt
+          echo "Commit Message: $(cat commit_message.txt)"
+
+      - name: Find mentions and assign issues
+        id: find_mentions
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const commitMessage = require('fs').readFileSync('commit_message.txt', 'utf8').trim();
+            const mentions = commitMessage.match(/@([a-zA-Z0-9_-]+)/g);
+            if (mentions) {
+              for (const mention of mentions) {
+                const assignee = mention.substring(1); // Remove '@'
+                const issue = await github.issues.listForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  state: 'open',
+                  creator: context.actor, // Only check open issues created by the actor (assuming the owner)
+                  labels: 'bug' // Add labels to narrow down the search if necessary
+                });
+                if (issue) {
+                  await github.issues.addAssignees({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue.number,
+                    assignees: [assignee]
+                  });
+                }
+              }
+            }
