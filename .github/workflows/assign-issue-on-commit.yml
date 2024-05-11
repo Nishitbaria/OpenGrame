@@ -1,56 +1,43 @@
 name: Assign Issue and Comment on Mention
 
 on:
-  push:
-    branches:
-      - main
+  issue_comment:
+    types: [created]
 
 jobs:
   assign_and_comment:
+    if: github.actor == github.event.issue.user.login && github.event.issue.state == 'open'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Parse commit messages
-        id: parse_messages
+      - name: Parse commit message
+        id: parse_message
         run: |
-          git log -1 --pretty=%B > commit_message.txt
-          echo "Commit Message: $(cat commit_message.txt)"
+          echo "${{ github.event.comment.body }}" > comment_body.txt
 
-      - name: Find mentions and assign issues
+      - name: Find mentions and assign issue
         id: find_mentions
         uses: actions/github-script@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const commitMessage = require('fs').readFileSync('commit_message.txt', 'utf8').trim();
-            const mentions = commitMessage.match(/@([a-zA-Z0-9_-]+)/g);
+            const commentBody = require('fs').readFileSync('comment_body.txt', 'utf8').trim();
+            const mentions = commentBody.match(/@([a-zA-Z0-9_-]+)/g);
             if (mentions) {
               for (const mention of mentions) {
                 const assignee = mention.substring(1); // Remove '@'
-                const { data: issues } = await github.issues.listForRepo({
+                await github.issues.addAssignees({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  state: 'open',
-                  creator: context.actor
+                  issue_number: context.issue.number,
+                  assignees: [assignee]
                 });
-                const issue = issues.find(issue => issue.title.includes("#")); // Assuming issue title contains '#' for reference
-                if (issue) {
-                  await github.issues.addAssignees({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    assignees: [assignee]
-                  });
 
-                  await github.issues.createComment({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    body: `Hey @${assignee}, You can start working on this issue. Please follow the contribution guidelines mentioned in the repository link: [CONTRIBUTING.md](https://github.com/Nishitbaria/OpenGrame/blob/main/CONTRIBUTING.md)`
-                  });
-                }
+                await github.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: `Hey @${assignee}, You can start working on this issue. Please follow the contribution guidelines mentioned in the repository link: [CONTRIBUTING.md](https://github.com/Nishitbaria/OpenGrame/blob/main/CONTRIBUTING.md)`
+                });
               }
             }
