@@ -12,6 +12,31 @@
 
 ## OpenGrame is a modern social media app that allows users to connect, share, and explore content in a seamless and engaging way.
 
+## Featured In
+
+<table>
+
+   <tr>
+      <th>Event Logo</th>
+      <th>Event Name</th>
+      <th>Event Description</th>
+   </tr>
+   <tr>
+      <td><img src=".github/assets/gssoc24.png" width="200" height="auto" loading="lazy" alt="GSSoC 24"/></td>
+      <td>GirlScript Summer of Code 2024</td>
+      <td>GirlScript Summer of Code is a three-month-long Open Source Program conducted every summer by GirlScript Foundation. It is an initiative to bring more beginners to Open-Source Software Development. <a href="docs/gssoc.md">Click here</a> to get the guidelines.  </td>
+   </tr>
+
+</table>
+
+## Table of Contents
+* [Technologies Used](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#technologies-used)
+* [Features](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#features)
+* [Getting Started](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#getting-started)
+    * [Pre-requisites](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#prerequisites)
+    * [Installation](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#installation)
+
+
 ## Technologies Used
 
 - **Frontend:**
