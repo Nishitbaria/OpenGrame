@@ -33,8 +33,8 @@
 * [Technologies Used](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#technologies-used)
 * [Features](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#features)
 * [Getting Started](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#getting-started)
-      * [Pre-requisites](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#prerequisites)
-      * [Installation](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#installation)
+    * [Pre-requisites](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#prerequisites)
+    * [Installation](https://github.com/Nishitbaria/OpenGrame?tab=readme-ov-file#installation)
 
 
 ## Technologies Used
