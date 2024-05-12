@@ -19,6 +19,7 @@ import {
   likePost,
   savePost,
   searchPosts,
+  searchUsers,
   signInAccount,
   signOutAccount,
   updatePost,
@@ -213,6 +214,13 @@ export const useSearchPosts = (searchTerm: string) => {
   return useQuery({
     queryKey: [QUERY_KEYS.SEARCH_POSTS],
     queryFn: () => searchPosts(searchTerm),
+    enabled: !!searchTerm,
+  });
+};
+export const useSearchUsers = (searchTerm: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.SEARCH_USERS],
+    queryFn: () => searchUsers(searchTerm),
     enabled: !!searchTerm,
   });
 };
