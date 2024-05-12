@@ -15,6 +15,28 @@ const LeftSidebar = () => {
     if (isSuccess) navigate(0);
   }, [isSuccess]);
 
+  const handleInviteClick = () => {
+    const currentURL = "https://opengram.vercel.app/sign-in";
+    navigator.clipboard.writeText(`Hey! I am inviting you to join this amazing Social Media Application: ${currentURL}`)
+      .then(() => {
+        const popup = document.createElement('div');
+        popup.textContent = "Invitation copied to clipboard!";
+        popup.classList.add(
+          "fixed", "top-1/2", "left-1/2", "transform", "-translate-x-1/2", "-translate-y-1/2",
+          "bg-white", "text-black", "px-4", "py-2", "rounded", "z-50"
+        );
+        document.body.appendChild(popup);
+
+        setTimeout(() => {
+          document.body.removeChild(popup);
+        }, 3000);
+      })
+      .catch((error: Error) => {
+        console.error("Failed to copy URL: ", error);
+        alert("Failed to copy URL!");
+      });
+  };
+
   return (
     <nav className="leftsidebar">
       <div className="flex flex-col gap-11">
@@ -45,9 +67,8 @@ const LeftSidebar = () => {
             return (
               <li
                 key={link.label}
-                className={`leftsidebar-link group  ${
-                  isActive && "bg-primary-500"
-                } `}
+                className={`leftsidebar-link group  ${isActive && "bg-primary-500"
+                  } `}
               >
                 <NavLink
                   to={link.route}
@@ -57,9 +78,8 @@ const LeftSidebar = () => {
                   <img
                     src={link.imgURL}
                     alt={link.label}
-                    className={`group-hover:invert-white ${
-                      isActive && "invert-white"
-                    }`}
+                    className={`group-hover:invert-white ${isActive && "invert-white"
+                      }`}
                   />
                   {link.label}
                 </NavLink>
@@ -68,9 +88,19 @@ const LeftSidebar = () => {
           })}
         </ul>
       </div>
+      <div className="p-4">
+        <button
+          className="shad-button_ghost"
+          onClick={handleInviteClick}
+        >
+          <img src="/assets/icons/invite.svg" alt="Invite" />
+          <p className="font-semibold text-sm"> Invite Your Friend </p>
+        </button>
+      </div>
+
       <div className="flex flex-center gap-1">
         <Button
-          variant="ghost"
+           variant="ghost"
           className="shad-button_ghost"
           onClick={() => signOut()}
         >
