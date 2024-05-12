@@ -5,7 +5,17 @@ import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { sidebarLinks } from "@/constants";
 import { INavLink } from "@/types";
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogTrigger,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 const LeftSidebar = () => {
   const [logout,setLogout]=useState(false)
   const navigate = useNavigate();
@@ -15,7 +25,7 @@ const LeftSidebar = () => {
   useEffect(() => {
     if (isSuccess) navigate(0);
   }, [isSuccess]);
-
+  const cancel=()=>setLogout(!logout)
   return (
     <>
     <nav className="leftsidebar">
@@ -71,35 +81,37 @@ const LeftSidebar = () => {
         </ul>
       </div>
       <div className="flex flex-center gap-1">
+      <AlertDialog>
+        <AlertDialogTrigger>
         <Button
-          variant="ghost"
           className="shad-button_ghost"
           onClick={() => setLogout(true)}
         >
           <img src="/assets/icons/logout.svg" alt="logout" />
           <p className="small-medium lg-base-medium"> Logout </p>
         </Button>
+        {logout && (
+        <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Logout</AlertDialogTitle>
+          <AlertDialogDescription>
+            If you wish to log out, please click 'Continue' to confirm or 'Cancel' to abort.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel className="cancel_button" onClick={cancel}>Cancel</AlertDialogCancel>
+          <AlertDialogAction  className="logout_button" onClick={() => signOut()}>Continue</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    )}
+        </AlertDialogTrigger>
+        </AlertDialog>
         <Link to="/settings" className="shad-button_ghost">
           <img src="/assets/icons/Settings.svg" alt="Settings" />
           <p className="small-medium lg-base-medium"> Settings </p>
         </Link>
       </div>
     </nav>
-    {logout?
-    <div style={{position:'fixed',height:250,width:350,backgroundColor:'rgb(9 9 10 /1)',top:0,right:0,left:0,bottom:0,margin:'auto',display:'flex',flexDirection:'column',justifyContent:'space-evenly',alignItems:'center',borderRadius:12
-    }}>
-    <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'2rem'}}>
-    <img src="/assets/icons/logout.svg" alt="logout" style={{width:40,height:40}} />
-          <p style={{fontSize:'2rem',fontWeight:'700'}}> Logout </p>
-    </div>
-    <p style={{textAlign:'center',padding:10}}>If you wish to log out, please click the 'Logout' button to proceed or click 'Cancel' to remain logged in.</p>
-    <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'1rem'}}>
-      <Button className="logout_button"  onClick={()=>signOut()}>Logout</Button>
-      <Button className="cancel_button"  onClick={()=>setLogout(false)}>Cancel</Button>
-    </div>
-    </div>
-    :<></>
-}
     </>
   );
 };
