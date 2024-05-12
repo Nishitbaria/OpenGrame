@@ -94,8 +94,8 @@ const LeftSidebar = () => {
     </div>
     <p style={{textAlign:'center',padding:10}}>If you wish to log out, please click the 'Logout' button to proceed or click 'Cancel' to remain logged in.</p>
     <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'1rem'}}>
-      <button style={{backgroundColor:'rgb(255 0 105)',padding:'0.3rem 2rem',borderRadius:12,fontWeight:500,cursor:'pointer'}} onClick={()=>signOut()}>Logout</button>
-      <button style={{backgroundColor:'rgb(255 255 255)',padding:'0.3rem 2rem',borderRadius:12,fontWeight:500,color:'black',cursor:'pointer'}} onClick={()=>setLogout(false)}>Cancel</button>
+      <Button className="logout_button"  onClick={()=>signOut()}>Logout</Button>
+      <Button className="cancel_button"  onClick={()=>setLogout(false)}>Cancel</Button>
     </div>
     </div>
     :<></>
