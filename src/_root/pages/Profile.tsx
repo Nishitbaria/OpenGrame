@@ -12,6 +12,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import LikedPosts from "./LikedPosts";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 interface StabBlockProps {
   value: string | number;
@@ -38,6 +40,11 @@ const Profile = () => {
         <Loader />
       </div>
     );
+
+  const copyToClipboard = async() => {
+    return await window.navigator.clipboard.writeText(window.location.href);
+  }
+
 
   return (
     <div className="profile-container">
@@ -71,13 +78,12 @@ const Profile = () => {
             </p>
           </div>
 
-          <div className="flex justify-center gap-4">
+          <div className={`flex items-start gap-4 ${user.id !== id && "flex-col"}`}>
             <div className={`${user.id !== currentUser.$id && "hidden"}`}>
               <Link
                 to={`/update-profile/${currentUser.$id}`}
-                className={`h-12 bg-dark-4 px-5 text-light-1 flex-center gap-2 rounded-lg ${
-                  user.id !== currentUser.$id && "hidden"
-                }`}
+                className={`h-12 bg-dark-4 px-5 text-light-1 flex-center gap-2 rounded-lg ${user.id !== currentUser.$id && "hidden"
+                  }`}
               >
                 <img
                   src={"/assets/icons/edit.svg"}
@@ -91,6 +97,41 @@ const Profile = () => {
                 </p>
               </Link>
             </div>
+            <Dialog>
+              <DialogTrigger>
+                <Button
+                  className="h-12 bg-dark-4 px-5 text-light-1 flex-center gap-2 rounded"
+                >
+                  <img
+                    src={"/assets/icons/share.svg"}
+                    alt="edit"
+                    width={20}
+                    height={20}
+                    className="mr-2" // Add consistent spacing after the img tag
+                  />
+                  <p className="flex whitespace-nowrap small-medium">
+                    Share Profile
+                  </p>
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Share Profile</DialogTitle>
+                </DialogHeader>
+                <div className="flex">
+                  <Input className="shad-input" value={window.location.href} disabled></Input>
+                  <Button onClick={copyToClipboard}>
+                    <img
+                      src={"/assets/icons/copy.svg"}
+                      alt="edit"
+                      width={20}
+                      height={20}
+                      className="mr-2" // Add consistent spacing after the img tag
+                    />
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
             <div className={`${user.id === id && "hidden"}`}>
               <Button type="button" className="px-8 shad-button_primary">
                 Follow
@@ -104,9 +145,8 @@ const Profile = () => {
         <div className="flex w-full max-w-5xl">
           <Link
             to={`/profile/${id}`}
-            className={`profile-tab rounded-l-lg ${
-              pathname === `/profile/${id}` && "!bg-dark-3"
-            }`}
+            className={`profile-tab rounded-l-lg ${pathname === `/profile/${id}` && "!bg-dark-3"
+              }`}
           >
             <img
               src={"/assets/icons/posts.svg"}
@@ -119,9 +159,8 @@ const Profile = () => {
           </Link>
           <Link
             to={`/profile/${id}/liked-posts`}
-            className={`profile-tab rounded-r-lg ${
-              pathname === `/profile/${id}/liked-posts` && "!bg-dark-3"
-            }`}
+            className={`profile-tab rounded-r-lg ${pathname === `/profile/${id}/liked-posts` && "!bg-dark-3"
+              }`}
           >
             <img
               src={"/assets/icons/like.svg"}
