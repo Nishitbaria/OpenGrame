@@ -20,6 +20,7 @@ import {
   useSignInAccount,
 } from "@/lib/react-query/queriesAndMutations.js";
 import { useUserContext } from "@/context/AuthContext.js";
+import GoogleLogin from "../google/page";
 
 const SignupForm = () => {
   const form = useForm<z.infer<typeof SignupValidation>>({
@@ -156,6 +157,8 @@ const SignupForm = () => {
               "Sign-up"
             )}
           </Button>
+
+          <GoogleLogin/>
           <p className="text-small-regular text-light-2 text-center mt-2">
             Already have an Account?
             <Link

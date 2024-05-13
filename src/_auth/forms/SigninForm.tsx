@@ -17,6 +17,7 @@ import Loader from "../../components/shared/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignInAccount } from "@/lib/react-query/queriesAndMutations.js";
 import { useUserContext } from "@/context/AuthContext.js";
+import GoogleLogin from "../google/page";
 
 const SigninForm = () => {
   const form = useForm<z.infer<typeof SigninValidation>>({
@@ -114,6 +115,7 @@ const SigninForm = () => {
               "Sign in"
             )}
           </Button>
+          <GoogleLogin/>
           <p className="mt-2 text-center text-small-regular text-light-2">
             Already have an Account?
             <Link
