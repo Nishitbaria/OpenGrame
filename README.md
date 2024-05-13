@@ -43,7 +43,7 @@
   - React
   - TypeScript
   - Tailwind CSS
-  - Sycdn (for additional styling assets)
+  - Shadcn (for additional styling assets)
 
 - **Backend:**
   - Appwrite (Backend as a Service)
