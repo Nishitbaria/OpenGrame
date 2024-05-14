@@ -74,7 +74,12 @@ const Profile = () => {
             </div>
 
             <p className="max-w-screen-sm text-center small-medium md:base-medium xl:text-left mt-7">
-              {currentUser.bio}
+              {currentUser.bio.split('\n').map((line: String, index: Number) => (
+                <>
+                  {line}
+                  {index !== currentUser.bio.split('\n').length - 1 && <br />} {/* Add <br> except for the last line */}
+                </>
+              ))}
             </p>
           </div>
 
