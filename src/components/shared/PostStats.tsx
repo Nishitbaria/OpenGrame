@@ -30,13 +30,13 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
   const { data: currentUser } = useGetCurrentUser();
 
   const savedPostRecord = currentUser?.save.find(
-    (record: Models.Document) => record.post.$id === post?.$id
+    (record: Models.Document) => record.post.$id == post?.$id
   );
   const [shareurl, setShareUrl] = useState("");
 
   useEffect(() => {
-    setIsSaved(!!savedPostRecord);
-  }, [currentUser]);
+    setIsSaved(!savedPostRecord ? false : true);
+  }, []);
 
   const handleLikePost = (
     e:
@@ -74,14 +74,13 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
         (e as React.KeyboardEvent<HTMLImageElement>).key === "Enter")
     ) {
       e.stopPropagation();
-
-      if (savedPostRecord) {
+      if (!isSaved) {
+        savePost({ userId: userId, postId: post?.$id || "" });
+        setIsSaved(true);
+      } else {
+        deleteSavePost(savedPostRecord.$id);
         setIsSaved(false);
-        return deleteSavePost(savedPostRecord.$id);
       }
-
-      savePost({ userId: userId, postId: post?.$id || "" });
-      setIsSaved(true);
     }
   };
 
