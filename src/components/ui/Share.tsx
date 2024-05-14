@@ -18,6 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "./button";
+import { useState } from "react";
 
 type ShareProps = {
   shareurl: string;
@@ -25,6 +26,8 @@ type ShareProps = {
 };
 
 const Share = ({ shareurl, handleShare }: ShareProps) => {
+
+  const [urlCopied, setUrlCopied] = useState(false);
   const data = [
     {
       label: "Facebook",
@@ -111,8 +114,9 @@ const Share = ({ shareurl, handleShare }: ShareProps) => {
               value={shareurl}
             ></input>
             <Button
-              className="bg-white"
+              className={urlCopied ? 'bg-green-400' : 'bg-white'}
               onClick={() => {
+                setUrlCopied(true);
                 window.navigator.clipboard.writeText(shareurl);
               }}
             >
