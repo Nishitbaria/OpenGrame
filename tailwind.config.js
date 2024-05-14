@@ -20,7 +20,7 @@ module.exports = {
     extend: {
       colors: {
         "primary-500": "#FF0069",
-        "hover-primary-500":"#D02D5E",
+        "hover-primary-500": "#D02D5E",
         "primary-600": "#5D5FEF",
         "secondary-500": "#FFB620",
         "off-white": "#D0DFFF",

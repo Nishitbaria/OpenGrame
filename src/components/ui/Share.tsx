@@ -26,7 +26,6 @@ type ShareProps = {
 };
 
 const Share = ({ shareurl, handleShare }: ShareProps) => {
-
   const [urlCopied, setUrlCopied] = useState(false);
   const data = [
     {
@@ -74,9 +73,9 @@ const Share = ({ shareurl, handleShare }: ShareProps) => {
 
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <img
-          className=" cursor-pointer"
+          className="cursor-pointer "
           src={"/assets/icons/share.svg"}
           alt="share"
           width={24}
@@ -90,11 +89,11 @@ const Share = ({ shareurl, handleShare }: ShareProps) => {
           <DialogTitle>Share Link</DialogTitle>
         </DialogHeader>
         <div>
-          <p className="text-md mb-4">Share this Post via</p>
-          <div className="flex justify-between items-center flex-wrap gap-4">
+          <p className="mb-4 text-md ">Share this Post via</p>
+          <div className="flex flex-wrap items-center justify-between gap-4">
             {data.map((ele) => {
               return (
-                <div className="flex flex-col justify-between items-center gap-2 cursor-pointer">
+                <div className="flex flex-col items-center justify-between gap-2 cursor-pointer">
                   {ele.icon}
                   <span className="text-sm capitalize">{ele.label}</span>
                 </div>
@@ -103,18 +102,18 @@ const Share = ({ shareurl, handleShare }: ShareProps) => {
           </div>
         </div>{" "}
         <div>
-          <p className="text-md mb-2">Or copy link</p>
-          <p className="text-md mb-2 text-gray-500">
+          <p className="mb-2 text-md">Or copy link</p>
+          <p className="mb-2 text-gray-500 text-md">
             Anyone who has this link will be able to view this
           </p>
-          <div className="flex justify-center align-center gap-1">
+          <div className="flex justify-center gap-1 align-center">
             <input
               readOnly
-              className=" border border-white-800 rounded-sm w-[100%] p-2 bg-[#000] outline-none"
+              className=" border border-white-800 rounded-sm w-[100%] p-2 bg-[#09090A] outline-none"
               value={shareurl}
             ></input>
             <Button
-              className={urlCopied ? 'bg-green-400' : 'bg-white'}
+              className={urlCopied ? "bg-green-400" : "bg-white"}
               onClick={() => {
                 setUrlCopied(true);
                 window.navigator.clipboard.writeText(shareurl);
