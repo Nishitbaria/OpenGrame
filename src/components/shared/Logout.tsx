@@ -1,3 +1,4 @@
+import React from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,6 +13,10 @@ import {
 import { Button } from "../ui/button";
 
 export function LogOut({ fnc }: { fnc: () => void }) {
+  const handleLogout = () => {
+    fnc();
+  };
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -22,17 +27,17 @@ export function LogOut({ fnc }: { fnc: () => void }) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure to want to Logout?</AlertDialogTitle>
+          <AlertDialogTitle>Are you sure you want to log out?</AlertDialogTitle>
           <AlertDialogDescription>
-            This will logout you from the website and delete your unsaved
+            This will log you out from the website and delete your unsaved
             changes.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            className="bg-pink-600 hover:bg-pink-500 "
-            onClick={() => fnc()}
+            className="bg-pink-600 hover:bg-pink-500"
+            onClick={handleLogout}
           >
             Logout
           </AlertDialogAction>
