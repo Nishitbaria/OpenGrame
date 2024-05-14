@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
-import { Button } from "../ui/button";
 import { useSignOutAccount } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 import { sidebarLinks } from "@/constants";
 import { INavLink } from "@/types";
+import LogOut from "./Logout";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
@@ -69,14 +69,7 @@ const LeftSidebar = () => {
         </ul>
       </div>
       <div className="flex flex-center gap-1">
-        <Button
-          variant="ghost"
-          className="shad-button_ghost"
-          onClick={() => signOut()}
-        >
-          <img src="/assets/icons/logout.svg" alt="logout" />
-          <p className="small-medium lg-base-medium"> Logout </p>
-        </Button>
+        <LogOut fnc={signOut} />
         <Link to="/settings" className="shad-button_ghost">
           <img src="/assets/icons/Settings.svg" alt="Settings" />
           <p className="small-medium lg-base-medium"> Settings </p>
