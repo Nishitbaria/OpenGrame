@@ -1,11 +1,13 @@
 import GridPostList from "@/components/shared/GridPostList";
 import Loader from "@/components/shared/Loader";
 import { Input } from "@/components/ui/input";
+import DropdownSelect from "@/components/ui/select";
 import useDebounce from "@/hooks/useDebounce";
 import {
   useGetPosts,
   useSearchPosts,
 } from "@/lib/react-query/queriesAndMutations";
+import { Filter } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -56,6 +58,25 @@ const Explore = () => {
     !shouldShowSearchResults &&
     posts.pages.every((item) => item.documents.length === 0);
 
+  const filterOptionData = [
+    {
+      label: "Most Liked",
+      value: "most-liked",
+    },
+    {
+      label: "Most Recent",
+      value: "most-recent",
+    },
+    {
+      label: "A-Z",
+      value: "a-z",
+    },
+    {
+      label: "Z-A",
+      value: "z-a",
+    },
+  ];
+
   return (
     <div className="explore-container">
       <div className="explore-inner_container">
@@ -83,15 +104,11 @@ const Explore = () => {
       <div className="w-full max-w-5xl mt-16 flex-between mb-7">
         <h3 className="body-bold md:h3-bold">Popular Today</h3>
 
-        <div className="gap-3 px-4 py-2 cursor-pointer flex-center bg-dark-3 rounded-xl">
-          <p className="small-medium md:base-medium text-light-2">All</p>
-          <img
-            src="/assets/icons/filter.svg"
-            width={20}
-            height={20}
-            alt="filter"
-          />
-        </div>
+        <DropdownSelect
+          placeholder="All"
+          selectIcon={<Filter className="h-5" />}
+          optionsData={filterOptionData}
+        />
       </div>
 
       <div className="flex flex-wrap w-full max-w-5xl gap-9">
