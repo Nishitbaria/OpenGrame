@@ -1,6 +1,5 @@
 import * as SelectPrimitive from "@radix-ui/react-select";
 import classnames from "classnames";
-import { Filter } from "lucide-react";
 import React, { FC } from "react";
 
 const Select = SelectPrimitive.Root;
