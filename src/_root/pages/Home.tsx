@@ -30,7 +30,7 @@ const Home = () => {
     <div className="flex flex-1 ">
       <div className="home-container">
       <div>
-       <MyPostHome/>
+       <MyPostHome action="Create"/>
       </div>
         <div className="home-posts">
           <h2 className="h3-bold md:h2-bold text-left w-full"> Home Feed</h2>
