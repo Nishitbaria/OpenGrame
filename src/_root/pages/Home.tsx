@@ -3,6 +3,7 @@ import Loader from "../../components/shared/Loader";
 
 import PostCard from "@/components/shared/PostCard";
 import { Models } from "appwrite";
+import StoriesContainer from "@/components/shared/StoriesContainer";
 
 const Home = () => {
   const {
@@ -25,8 +26,9 @@ const Home = () => {
   }
 
   return (
-    <div className="flex flex-1 ">
+    <div className="flex flex-1 flex-col ">
       <div className="home-container">
+        <StoriesContainer />
         <div className="home-posts">
           <h2 className="h3-bold md:h2-bold text-left w-full"> Home Feed</h2>
           {isPostLoading ? (
