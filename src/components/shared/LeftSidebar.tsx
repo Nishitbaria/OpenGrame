@@ -38,7 +38,7 @@ const LeftSidebar = () => {
           </div>
         </Link>
 
-        <ul className="flex flex-col gap-6">
+        <ul className="flex flex-col gap-4">
           {sidebarLinks.map((link: INavLink) => {
             const isActive = pathname === link.route;
 
@@ -57,7 +57,7 @@ const LeftSidebar = () => {
                   <img
                     src={link.imgURL}
                     alt={link.label}
-                    className={`group-hover:invert-white ${
+                    className={`w-5 group-hover:invert-white ${
                       isActive && "invert-white"
                     }`}
                   />

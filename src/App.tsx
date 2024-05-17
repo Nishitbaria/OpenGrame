@@ -16,6 +16,7 @@ import Profile from "./_root/pages/Profile";
 import UpdateProfile from "./_root/pages/UpdateProfile";
 import Settings from "./components/shared/Settings";
 import HomePage from "./_root/pages/HomePage";
+import CreateStory from "./_root/pages/CreateStory";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/profile/:id/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/upload-story" element={<CreateStory />} />
         </Route>
       </Routes>
       <Toaster />

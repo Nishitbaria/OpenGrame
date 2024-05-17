@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-import "./Story.css";
-
 interface Story {
   image_url: string;
 }
@@ -24,6 +22,7 @@ export default function StoryModel({ stories, avatar, username }: Props) {
     if (!storyPaused) {
       timeout = setTimeout(() => {
         if (storyIndexRef.current === stories.length - 1) {
+          // End of stories
         } else {
           setStoryIndex((prevIndex) => prevIndex + 1);
         }
@@ -39,55 +38,55 @@ export default function StoryModel({ stories, avatar, username }: Props) {
 
   function getProgressBarClassName(index: number) {
     if (index < storyIndex) {
-      return "progress-bar progress-bar-finished";
+      return "w-full";
     } else if (index === storyIndex) {
-      //   return storyPaused
-      //     ? "progress-bar progress-bar-active progress-bar-paused"
-      //     : "progress-bar progress-bar-active";
-      return "progress-bar progress-bar-active";
+      return storyPaused
+        ? "animate-progress-bar bg-white w-full"
+        : "animate-progress-bar bg-white";
     } else {
-      return "progress-bar";
+      return "w-0";
     }
   }
 
   return (
-    <div className="relative w-[100%] h-[500px] ">
+    <div className="relative w-full h-full">
       <div className="flex flex-col gap-1">
-        <div className="flex gap-4 justify-start items-center  ">
-          <div className="w-16 h-16  bg-gradient-to-tr from-blue-400 to-fuchsia-600 p-1 rounded-full">
+        <div className="flex gap-4 justify-start items-center">
+          <div className="w-16 h-16 bg-gradient-to-tr from-blue-400 to-fuchsia-600 p-1 rounded-full">
             <img
-              className="w-[100%] h-[100%] rounded-full object-cover"
+              className="w-full h-full p-1 rounded-full object-cover bg-black"
               src={avatar}
+              alt="avatar"
             />
           </div>
-          <div className="">
+          <div>
             <span className="text-md capitalize">{username}</span>
           </div>
-          {/* {storyPaused && <div className="pause">PAUSED</div>} */}
         </div>
-        <div className="progress-bars">
+        <div className="flex my-1">
           {stories.map((_, index) => (
-            <div className="progress-bar-container" key={index}>
+            <div
+              key={index}
+              className="flex-1 bg-gray-500 h-1 mx-0.5 last:mr-0 first:ml-0"
+            >
               <div
                 style={{ animationDuration: `${DURATION / 1000}s` }}
-                className={getProgressBarClassName(index)}
+                className={`h-full bg-white ${getProgressBarClassName(index)}`}
               ></div>
             </div>
           ))}
         </div>
-        <div className="relative w-[100%] h-[400px] ">
+        <div className="relative w-full h-96">
           <img
-            className="w-[100%] h-[100%] object-cover"
-            // onMouseDown={() => setStoryPaused(true)}
+            className="w-full h-full object-cover"
             onMouseUp={() => setStoryPaused(false)}
-            id="img"
             src={stories[storyIndex].image_url}
             alt="story"
           />
           {storyIndex !== 0 && (
             <div
               onClick={() => setStoryIndex((prevIndex) => prevIndex - 1)}
-              className="absolute -left-[5%] top-1/2 transform -translate-y-1/2 z-10 bg-gray-900 p-1 text-center rounded-full text-sm text-pink-500 w-8 h-8"
+              className="cursor-pointer absolute -left-5 top-1/2 transform -translate-y-1/2 z-10 bg-gray-900 p-1 text-center rounded-full text-sm text-fuchsia-600 w-8 h-8"
             >
               &lt;
             </div>
@@ -95,7 +94,7 @@ export default function StoryModel({ stories, avatar, username }: Props) {
           {storyIndex !== stories.length - 1 && (
             <div
               onClick={() => setStoryIndex((prevIndex) => prevIndex + 1)}
-              className="absolute -right-[5%] top-1/2 transform -translate-y-1/2 z-10 bg-gray-900 p-1 text-center rounded-full text-sm text-pink-500 w-8 h-8"
+              className="cursor-pointer absolute -right-5 top-1/2 transform -translate-y-1/2 z-10 bg-gray-900 p-1 text-center rounded-full text-sm text-fuchsia-600 w-8 h-8"
             >
               &gt;
             </div>
