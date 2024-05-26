@@ -15,8 +15,10 @@ import PostDetails from "./_root/pages/PostDetails";
 import Profile from "./_root/pages/Profile";
 import UpdateProfile from "./_root/pages/UpdateProfile";
 import Settings from "./components/shared/Settings";
-import HomePage from "./_root/pages/HomePage"; // Import the NotFoundPage component
-import Custom404 from './_root/pages/Custom404';
+import HomePage from "./_root/pages/HomePage";
+import CreateStory from "./_root/pages/CreateStory";
+import Custom404 from './_root/pages/Custom404';// Import the NotFoundPage component
+
 
 const App = () => {
   return (
@@ -42,6 +44,7 @@ const App = () => {
           <Route path="/profile/:id/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/upload-story" element={<CreateStory />} />
         </Route>
 
         {/* 404 Page */}

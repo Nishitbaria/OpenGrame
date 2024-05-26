@@ -5,10 +5,12 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import {
+  CreateStory,
   CreateUserAccount,
   createPost,
   deletePost,
   deleteSavedPost,
+  getAllStories,
   getCurrentUser,
   getInfinitePosts,
   getPostById,
@@ -30,9 +32,9 @@ import {
   INewUser,
   IUpdatePost,
   IUpdateUser,
+  NewStory,
 } from "../../types/index.ts";
 import { QUERY_KEYS } from "./queryKeys.ts";
-
 
 //this function is use to create a new user account
 export const useCreateUserAccount = () => {
@@ -278,5 +280,26 @@ export const useGetUserPosts = (userId?: string) => {
     queryKey: [QUERY_KEYS.GET_USER_POSTS, userId],
     queryFn: () => getUserPosts(userId),
     enabled: !!userId,
+  });
+};
+
+// Stories
+
+export const useGetAllStories = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_STORY],
+    queryFn: getAllStories,
+  });
+};
+
+export const useCreateStory = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (story: NewStory) => CreateStory(story),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.CREATE_STORY],
+      });
+    },
   });
 };
