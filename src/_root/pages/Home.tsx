@@ -9,6 +9,7 @@ const Home = () => {
   const {
     data: posts,
     isPending: isPostLoading,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     isError: isErrorPosts,
   } = useGetRecentPosts();
 
@@ -26,15 +27,15 @@ const Home = () => {
   // }
 
   return (
-    <div className="flex flex-1 flex-col ">
+    <div className="flex flex-col flex-1 ">
       <div className="home-container">
         <StoriesContainer />
         <div className="home-posts">
-          <h2 className="h3-bold md:h2-bold text-left w-full"> Home Feed</h2>
+          <h2 className="w-full text-left h3-bold md:h2-bold"> Home Feed</h2>
           {isPostLoading ? (
             <Loader />
           ) : (
-            <ul className="flex flex-col flex-1 gap-9 w-full">
+            <ul className="flex flex-col flex-1 w-full gap-9">
               {posts?.documents.map((post: Models.Document) => (
                 <li key={post.$id} className="flex justify-center w-full">
                   <PostCard post={post} key={post.caption} />
