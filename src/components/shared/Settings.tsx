@@ -1,10 +1,9 @@
 export default function Settings() {
   return (
-    <div>
-      <h1 className="h3-bold flex flex-center justify-center items-center">
-        {" "}
-        This Page is UnderDevelopment{" "}
-      </h1>
+    <div className="h3 p-5 gap-4 flex flex-col">
+      <a href="/privacypolicy">Privacy Policy</a>
+      <a href="/licensing">Licensing</a>
+      <a href="/termsandconditions">Terms and Conditions</a>
     </div>
   );
 }
