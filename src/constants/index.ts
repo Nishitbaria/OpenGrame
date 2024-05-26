@@ -29,6 +29,11 @@ export const sidebarLinks = [
     route: "/upload-Story",
     label: "Upload Story",
   },
+  {
+    imgURL: "/assets/icons/Settings.svg",
+    route: "/Settings",
+    label: "Settings",
+  },
 ];
 
 export const bottombarLinks = [

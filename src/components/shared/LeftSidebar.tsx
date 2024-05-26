@@ -17,8 +17,8 @@ const LeftSidebar = () => {
 
   return (
     <nav className="leftsidebar">
-      <div className="flex flex-col gap-11">
-        <Link to="/" className="flex gap-3 items-center">
+      <div className="flex flex-col gap-10">
+        <Link to="/" className="flex items-center gap-3">
           <img
             src="/assets/images/logo.svg"
             alt="logo"
@@ -26,9 +26,9 @@ const LeftSidebar = () => {
             height={36}
           />
         </Link>
-        <Link className="flex gap-3 items-center" to={`/profile/${user.id}`}>
+        <Link className="flex items-center gap-3" to={`/profile/${user.id}`}>
           <img
-            className="h-14 w-14 rounded-full"
+            className="rounded-full h-14 w-14"
             src={user.imageUrl || `/assets/icons/profile-placeholder.svg`}
             alt="profile"
           />
@@ -51,7 +51,7 @@ const LeftSidebar = () => {
               >
                 <NavLink
                   to={link.route}
-                  className="flex gap-4 items-center p-4"
+                  className="flex items-center gap-4 p-2"
                 >
                   {" "}
                   <img
@@ -67,13 +67,6 @@ const LeftSidebar = () => {
             );
           })}
         </ul>
-      </div>
-      <div className="flex flex-center gap-1">
-        <LogOut fnc={signOut} />
-        <Link to="/settings" className="shad-button_ghost">
-          <img src="/assets/icons/Settings.svg" alt="Settings" />
-          <p className="small-medium lg-base-medium"> Settings </p>
-        </Link>
       </div>
     </nav>
   );

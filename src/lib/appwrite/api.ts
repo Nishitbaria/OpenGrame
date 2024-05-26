@@ -514,6 +514,7 @@ export async function updateUser(user: IUpdateUser) {
 }
 //this function is use for getting the users   // ============================== GET USERS
 export async function getUsers(limit?: number) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const queries: any[] = [Query.orderDesc("$createdAt")];
 
   if (limit) {
