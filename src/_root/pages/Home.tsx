@@ -13,18 +13,18 @@ const Home = () => {
     isError: isErrorPosts,
   } = useGetRecentPosts();
 
-  // if (isErrorPosts) {
-  //   return (
-  //     <div className="flex flex-1">
-  //       <div className="home-container">
-  //         <p className="body-medium text-light-1">Something bad happened</p>
-  //       </div>
-  //       <div className="home-creators">
-  //         <p className="body-medium text-light-1">Something bad happened</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (isErrorPosts) {
+    return (
+      <div className="flex flex-1">
+        <div className="home-container">
+          <p className="body-medium text-light-1">Something bad happened</p>
+        </div>
+        <div className="home-creators">
+          <p className="body-medium text-light-1">Something bad happened</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col flex-1 ">
