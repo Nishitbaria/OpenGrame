@@ -1,6 +1,13 @@
 import { ID, Query, ImageGravity } from "appwrite";
 import { appwriteConfig, account, databases, storage, avatars } from "./config";
-import { IUpdatePost, INewPost, INewUser, IUpdateUser } from "@/types";
+import {
+  IUpdatePost,
+  INewPost,
+  INewUser,
+  IUpdateUser,
+  NewStory,
+} from "@/types";
+import { ONE_DAY_IN_MS } from "@/constants";
 
 //this function is use to create a new user account
 export async function CreateUserAccount(user: INewUser) {
@@ -22,6 +29,12 @@ export async function CreateUserAccount(user: INewUser) {
       username: user.username,
       imageUrl: avatarUrl,
     });
+
+    // await saveUserStoryData({
+    //   accountId: newAccount.$id,
+    //   imageUrl: avatarUrl,
+    //   username: user.username,
+    // });
 
     return newUser;
 
@@ -54,10 +67,12 @@ export async function saveUserToDB(user: {
 }
 // this function is use to sign in the user
 export async function signInAccount(user: { email: string; password: string }) {
-
-  console.log(user, "Printing User for Testing Perpose")
+  console.log(user, "Printing User for Testing Perpose");
   try {
-    const session = await account.createEmailPasswordSession(user.email, user.password);
+    const session = await account.createEmailPasswordSession(
+      user.email,
+      user.password
+    );
 
     return session;
   } catch (error) {
@@ -499,6 +514,7 @@ export async function updateUser(user: IUpdateUser) {
 }
 //this function is use for getting the users   // ============================== GET USERS
 export async function getUsers(limit?: number) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const queries: any[] = [Query.orderDesc("$createdAt")];
 
   if (limit) {
@@ -533,6 +549,110 @@ export async function getUserPosts(userId?: string) {
     if (!post) throw Error;
 
     return post;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// STORY APIS
+
+export async function getAllStories(): Promise<
+  {
+    id: string;
+    name: string;
+    username: string;
+    image_url: string;
+    stories: { image_url: string; isOld: boolean; createdDate: string }[];
+  }[]
+> {
+  try {
+    const usersResponse: any = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId
+    );
+
+    const users: any[] = usersResponse.documents;
+    const storiesPromises: Promise<
+      { image_url: string; isOld: boolean; createdDate: string }[]
+    >[] = users.map(async (user: any) => {
+      const storiesResponse = await databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.storyDataCollectionId,
+        [
+          Query.equal("accountId", user.$id), // Assuming "accountID" is the correct field name
+        ]
+      );
+      const stories: {
+        image_url: string;
+        createdDate: string;
+        isOld: boolean;
+      }[] = storiesResponse.documents.map((doc: any) => {
+        const createdDate = new Date(doc.createdDate);
+        const currentDate = new Date();
+
+        // Calculate the difference in milliseconds between current date and created date
+        const timeDifference = currentDate.getTime() - createdDate.getTime();
+
+        // Check if the difference is greater than 24 hours
+        const isOld = timeDifference > ONE_DAY_IN_MS;
+
+        return {
+          image_url: doc.image_url,
+          createdDate: doc.createdDate,
+          isOld,
+        };
+      });
+      return stories;
+    });
+
+    const allStories = await Promise.all(storiesPromises);
+    const result = users.map((user: any, index: number) => ({
+      id: user.$id,
+      name: user.name,
+      username: user.username,
+      image_url: user.imageUrl,
+      stories: allStories[index],
+    }));
+
+    return result;
+  } catch (error) {
+    console.error("Error getting stories:", error);
+    throw error;
+  }
+}
+
+export async function CreateStory(story: NewStory) {
+  try {
+    // Upload file to appwrite storage
+    const uploadedFile = await uploadFile(story.file[0]);
+
+    if (!uploadedFile) throw Error;
+
+    // Get file url
+    const fileUrl = getFilePreview(uploadedFile.$id);
+    if (!fileUrl) {
+      await deleteFile(uploadedFile.$id);
+      throw Error;
+    }
+    const currentDateTime = new Date().toISOString();
+    // Create post
+    const newStory = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.storyDataCollectionId,
+      ID.unique(),
+      {
+        accountId: story.accountId,
+        image_url: fileUrl,
+        createdDate: currentDateTime,
+      }
+    );
+
+    if (!newStory) {
+      await deleteFile(uploadedFile.$id);
+      throw Error;
+    }
+
+    return newStory;
   } catch (error) {
     console.log(error);
   }
