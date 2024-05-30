@@ -432,6 +432,8 @@ export async function getUserById(userId: string) {
       userId
     );
 
+    console.log(user)
+
     if (!user) throw Error;
 
     return user;
@@ -533,6 +535,24 @@ export async function getUserPosts(userId?: string) {
     if (!post) throw Error;
 
     return post;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+export async function getTopCreators(){
+  try {
+    const users = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      [Query.orderDesc("liked"),Query.orderDesc("posts"),Query.orderDesc("save"),Query.limit(10)]
+    );
+    console.log(users);
+
+    if (!users) throw Error;
+
+    return users;
   } catch (error) {
     console.log(error);
   }

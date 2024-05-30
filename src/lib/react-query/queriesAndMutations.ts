@@ -13,6 +13,7 @@ import {
   getInfinitePosts,
   getPostById,
   getRecentPosts,
+  getTopCreators,
   getUserById,
   getUserPosts,
   getUsers,
@@ -280,3 +281,10 @@ export const useGetUserPosts = (userId?: string) => {
     enabled: !!userId,
   });
 };
+
+export const useGetTopCreators = () => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_TOP_CREATORS],
+    queryFn: () => getTopCreators()
+  })
+}
