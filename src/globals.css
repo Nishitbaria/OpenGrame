@@ -110,7 +110,7 @@
 
   .no-scrollbar::-webkit-scrollbar {
     display: none;
-}
+  }
 
   .common-container {
     @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
@@ -268,7 +268,7 @@
   .shad-textarea {
     @apply h-36 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
   }
-  
+
   .shad-button_primary {
     @apply bg-primary-500 hover:bg-hover-primary-500 text-light-1 flex gap-2 !important;
   }

@@ -20,8 +20,11 @@ import {
   useSignInAccount,
 } from "@/lib/react-query/queriesAndMutations.js";
 import { useUserContext } from "@/context/AuthContext.js";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const SignupForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
     defaultValues: {
@@ -77,9 +80,9 @@ const SignupForm = () => {
 
   return (
     <Form {...form}>
-      <div className=" sm:w-420 flex-center  flex-col mt-10 ">
+      <div className=" sm:w-420 flex-center   flex-col mt-7 ">
         <img src="/assets/images/logo.svg" />
-        <h2 className="h3-bold md:h2:bold text-white pt-5 md:pt-12">
+        <h2 className="h3-bold md:h2:bold text-white pt-5 md:pt-10">
           {" "}
           Create New Account{" "}
         </h2>
@@ -88,7 +91,7 @@ const SignupForm = () => {
         </p>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-5 w-full mt-5"
+          className="flex flex-col gap-2 w-full mt-5"
         >
           <FormField
             control={form.control}
@@ -138,9 +141,18 @@ const SignupForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="shad-form_label">Password</FormLabel>
-                <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
+              <div className="relative">
+              <FormControl>
+                  <Input type={showPassword? "text" :"password" } className="shad-input" {...field} />
                 </FormControl>
+                <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                    >
+                     {showPassword ? <EyeOff />: <Eye/> }
+                    </button>
+              </div>
                 <FormMessage />
               </FormItem>
             )}

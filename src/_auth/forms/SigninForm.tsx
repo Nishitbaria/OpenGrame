@@ -17,8 +17,11 @@ import Loader from "../../components/shared/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignInAccount } from "@/lib/react-query/queriesAndMutations.js";
 import { useUserContext } from "@/context/AuthContext.js";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const SigninForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
     defaultValues: {
@@ -96,9 +99,19 @@ const SigninForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="shad-form_label">Password</FormLabel>
-                <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
+                <div className="relative">
+              <FormControl>
+                  <Input type={showPassword? "text" :"password" } className="shad-input" {...field} />
                 </FormControl>
+                <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                    >
+                     {showPassword ? <EyeOff />: <Eye/> }
+                    </button>
+              </div>
+          
                 <FormMessage />
               </FormItem>
             )}
@@ -115,13 +128,13 @@ const SigninForm = () => {
             )}
           </Button>
           <p className="mt-2 text-center text-small-regular text-light-2">
-            Already have an Account?
+            Don't have an Account?
             <Link
               to="/sign-up"
               className="ml-1 text-primary-500 text-small-semibold"
             >
               {" "}
-              Sign up{" "}
+              Sign up!{" "}
             </Link>
           </p>
         </form>

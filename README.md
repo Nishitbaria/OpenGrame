@@ -43,7 +43,7 @@
   - React
   - TypeScript
   - Tailwind CSS
-  - Sycdn (for additional styling assets)
+  - Shadcn (for additional styling assets)
 
 - **Backend:**
   - Appwrite (Backend as a Service)
@@ -109,5 +109,19 @@ VITE_APPWRITE_USERS_COLLECTION_ID="65479b3f3ff36d0c3fa6"
 VITE_APPWRITE_POSTS_COLLECTION_ID="65479a1224b7d12ccb6e"
 
 ```
+
+
+ 
+<h2 align = "center">Our Contributors ❤️</h2>
+<div align = "center">
+ <h3>Thank you for contributing to our repository</h3>
+
+![Contributors](https://contrib.rocks/image?repo=Nishitbaria/OpenGrame)
+
+
+</div>
+
+
+
 
 
