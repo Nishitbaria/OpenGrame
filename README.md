@@ -123,5 +123,7 @@ VITE_APPWRITE_POSTS_COLLECTION_ID="65479a1224b7d12ccb6e"
 
 
 
+## Acknowledgments
 
+- This project was initially inspired by the tutorials from JavaScript Mastery. A special thanks to them for the foundational knowledge that Give me to  kickstarted this project. current I am actively maintaining this project also thank to appwrite who provides good back-end as service 
 
