@@ -34,6 +34,20 @@ export default function Settings() {
           <LogOut fnc={signOut} />
         </button>
       </div>
+
+      <div className="p-6 rounded-lg w-full shadow bg-[#09090A]">
+        <a className="text-2xl font-bold" href="/privacypolicy">Privacy Policy</a>
+      </div>
+
+      <div className="p-6 rounded-lg w-full shadow bg-[#09090A]">
+        <a className="text-2xl font-bold" href="/licensing">Licensing</a>
+      </div>
+
+      <div className="p-6 rounded-lg w-full shadow bg-[#09090A]">
+        <a className="text-2xl font-bold" href="/termsandconditions">Terms and Conditions</a>
+      </div>
+
+
     </div>
   );
 }
