@@ -1,0 +1,40 @@
+/* src/components/EnableMFA.css */
+.enable-mfa-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 10vh;
+
+    padding: 2px;
+  }
+  
+  .enable-mfa-container h1 {
+    font-size: 24px;
+    margin-bottom: 82px;
+    
+   
+  }
+  
+  .enable-mfa-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    justify-content: center;
+    background-color: #505357;
+    border: none;
+    margin-left: 15cm;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15cm;
+    transition: background-color 0.3s ease;
+  }
+  
+  .enable-mfa-button:hover {
+    background-color: #abb2b9;
+  }
+  
+  .mfa-enabled-message {
+    font-size: 18px;
+    color: #28a745;
+  }
+  

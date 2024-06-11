@@ -1,0 +1,22 @@
+/* src/components/RecoveryCodes.css */
+.generate-button {
+    margin:5cm;
+    background-color: #595d62; /* Blue background color */
+    border: none; /* Remove border */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Add padding */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Make it inline-block */
+    font-size: 16px; /* Set font size */
+    margin-bottom: 10px; /* Add margin bottom */
+    cursor: pointer; /* Add cursor pointer */
+    border-radius: 5px;
+    margin-left: 10cm;
+    margin-right: 15cm;/* Add border radius */
+  }
+  
+  .generate-button:hover {
+    background-color: #383a3bbb; /* Darker blue when hovering */
+  }
+  
