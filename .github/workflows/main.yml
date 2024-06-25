@@ -22,4 +22,4 @@ jobs:
         run: docker-compose -f compose.yaml up --build -d
 
       - name: Push to Docker Hub
-        run: docker-compose -f compose.yaml push
+        run: docker-compose -f docker/compose.yaml push
