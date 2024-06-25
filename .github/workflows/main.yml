@@ -3,7 +3,7 @@ name: Docker Compose Actions
 on:
   push:
     branches:
-      - 'main'
+      - "main"
 
 jobs:
   docker-compose:
@@ -19,7 +19,7 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u nishitbaria --password-stdin
 
       - name: Run Docker Compose
-        run: docker-compose -f compose.yaml up --build -d
+        run: docker-compose -f docker/compose.yml up --build -d
 
       - name: Push to Docker Hub
-        run: docker-compose -f docker/compose.yaml push
+        run: docker-compose -f docker/compose.yml push
