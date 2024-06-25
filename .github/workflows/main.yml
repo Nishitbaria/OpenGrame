@@ -16,15 +16,10 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
-        env:
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-        run: |
-          echo "$DOCKERHUB_TOKEN" | docker login -u nishitbaria --password-stdin
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u nishitbaria --password-stdin
 
       - name: Run Docker Compose
-        run: |
-          docker-compose -f compose.yaml up --build -d
+        run: docker-compose -f compose.yaml up --build -d
 
       - name: Push to Docker Hub
-        run: |
-          docker-compose -f compose.yaml push
+        run: docker-compose -f compose.yaml push
