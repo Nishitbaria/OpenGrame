@@ -1,0 +1,15 @@
+/* src/components/VerifyEmailCallback.css */
+.verification-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .verification-container h2 {
+    font-size: 24px;
+  }
+  
