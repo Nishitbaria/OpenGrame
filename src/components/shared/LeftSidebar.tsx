@@ -2,6 +2,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { useUserContext } from "@/context/AuthContext";
 import { sidebarLinks } from "@/constants";
 import { INavLink } from "@/types";
+import InviteModal from "./InviteModal";
 
 const LeftSidebar = () => {
   const { user } = useUserContext();
@@ -58,6 +59,10 @@ const LeftSidebar = () => {
               </li>
             );
           })}
+
+          <li className={`leftsidebar-link group   `}>
+            <InviteModal />
+          </li>
         </ul>
       </div>
     </nav>
