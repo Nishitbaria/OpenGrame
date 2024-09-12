@@ -21,7 +21,7 @@ import PrivacyPolicy from './components/shared/PrivacyPolicy';
 import Licensing from './components/shared/Licensing';
 import TermsandConditions from './components/shared/TermsandConditions';
 import ErrorBoundary from './components/shared/ErrorBoundary';
-
+import CreateStory from "./_root/pages/CreateStory";
 
 const App = () => {
   return (
@@ -50,6 +50,7 @@ const App = () => {
             <Route path="/settings" element={<Settings />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
             <Route path="/licensing" element={<Licensing />} />
+            <Route path="/upload-story" element={<CreateStory />} />
             <Route path="/termsandconditions" element={<TermsandConditions />} />
           </Route>
 
