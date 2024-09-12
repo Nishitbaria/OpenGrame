@@ -22,6 +22,7 @@ export default function Settings() {
       await signOut();
       toast({
         title: "Logged out successfully",
+        variant: "default",
       });
     } catch (error) {
       console.error("Error signing out:", error);

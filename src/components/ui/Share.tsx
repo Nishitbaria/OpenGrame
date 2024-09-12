@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "./button";
 import { useState } from "react";
+import { Copy, Check, Share as ShareIcon } from "lucide-react";
 
 type ShareProps = {
   shareurl: string;
@@ -27,6 +28,13 @@ type ShareProps = {
 
 const Share = ({ shareurl, handleShare }: ShareProps) => {
   const [urlCopied, setUrlCopied] = useState(false);
+
+  const handleCopyClick = () => {
+    setUrlCopied(true);
+    window.navigator.clipboard.writeText(shareurl);
+    setTimeout(() => setUrlCopied(false), 2000); // Reset after 2 seconds
+  };
+
   const data = [
     {
       label: "Facebook",
@@ -74,22 +82,19 @@ const Share = ({ shareurl, handleShare }: ShareProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <img
-          className="cursor-pointer "
-          src={"/assets/icons/share.svg"}
-          alt="share"
-          width={24}
-          height={24}
-          tabIndex={0}
+        <ShareIcon
+          className="cursor-pointer text-light-1"
+          size={24}
           onClick={handleShare}
+          tabIndex={0}
         />
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="bg-dark-2 border border-dark-4 text-light-1">
         <DialogHeader>
-          <DialogTitle>Share Link</DialogTitle>
+          <DialogTitle className="h3-bold">Share Link</DialogTitle>
         </DialogHeader>
-        <div>
-          <p className="mb-4 text-md ">Share this Post via</p>
+        <div className="space-y-4">
+          <p className="base-medium">Share this Post via</p>
           <div className="flex flex-wrap items-center justify-between gap-4">
             {data.map((ele) => {
               return (
@@ -98,37 +103,38 @@ const Share = ({ shareurl, handleShare }: ShareProps) => {
                   className="flex flex-col items-center justify-between gap-2 cursor-pointer"
                 >
                   {ele.icon}
-                  <span className="text-sm capitalize">{ele.label}</span>
+                  <span className="small-medium capitalize">{ele.label}</span>
                 </div>
               );
             })}
           </div>
-        </div>{" "}
-        <div>
-          <p className="mb-2 text-md">Or copy link</p>
-          <p className="mb-2 text-gray-500 text-md">
+        </div>
+        <div className="space-y-2">
+          <p className="base-medium">Or copy link</p>
+          <p className="small-regular text-light-3">
             Anyone who has this link will be able to view this
           </p>
-          <div className="flex justify-center gap-1 align-center">
+          <div className="flex justify-center gap-2 align-center">
             <input
               readOnly
-              className=" border border-white-800 rounded-sm w-[100%] p-2 bg-[#09090A] outline-none"
+              className="flex-1 bg-dark-4 border-none rounded-lg p-2 text-light-1 small-medium focus:ring-1 focus:ring-primary-500"
               value={shareurl}
-            ></input>
+            />
             <Button
-              className={urlCopied ? "bg-green-400" : "bg-white"}
-              onClick={() => {
-                setUrlCopied(true);
-                window.navigator.clipboard.writeText(shareurl);
-              }}
+              className={`shad-button_primary ${urlCopied ? "bg-green-500" : ""}`}
+              onClick={handleCopyClick}
             >
-              <img
-                src={"/assets/icons/copy.svg"}
-                alt="edit"
-                width={20}
-                height={20}
-                className=" invert" // Add consistent spacing after the img tag
-              />
+              {urlCopied ? (
+                <>
+                  <Check className="mr-2" size={20} />
+                  Copied
+                </>
+              ) : (
+                <>
+                  <Copy className="mr-2" size={20} />
+                  Copy
+                </>
+              )}
             </Button>
           </div>
         </div>

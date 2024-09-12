@@ -33,6 +33,7 @@ module.exports = {
         "light-2": "#EFEFEF",
         "light-3": "#7878A3",
         "light-4": "#5C5C7B",
+        "green-500": "#22c55e", // Adjust this to match your preferred green
       },
       screens: {
         xs: "480px",
@@ -53,7 +54,7 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
-        "progressBar": {
+        progressBar: {
           "0%": { width: "0%" },
           "100%": { width: "100%" },
         },
