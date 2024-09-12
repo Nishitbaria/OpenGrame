@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "./button";
 import { useState } from "react";
-import { Copy, Check, Share as ShareIcon } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 
 type ShareProps = {
   shareurl: string;
@@ -82,11 +82,14 @@ const Share = ({ shareurl, handleShare }: ShareProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <ShareIcon
-          className="cursor-pointer text-light-1"
-          size={24}
-          onClick={handleShare}
+        <img
+          className="cursor-pointer invert-white"
+          src={"/assets/icons/share.svg"}
+          alt="share"
+          width={24}
+          height={24}
           tabIndex={0}
+          onClick={handleShare}
         />
       </DialogTrigger>
       <DialogContent className="bg-dark-2 border border-dark-4 text-light-1">
