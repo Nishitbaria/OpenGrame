@@ -20,41 +20,45 @@ import Custom404 from './_root/pages/Custom404';
 import PrivacyPolicy from './components/shared/PrivacyPolicy';
 import Licensing from './components/shared/Licensing';
 import TermsandConditions from './components/shared/TermsandConditions';
+import ErrorBoundary from './components/shared/ErrorBoundary';
+
 
 const App = () => {
   return (
-    <main className="flex h-screen">
-      <Routes>
-        {/* Public Routes */}
-        <Route element={<AuthLayout />}>
-          <Route path="/Homepage" element={<HomePage />} />
-          <Route path="/sign-in" element={<SigninForm />} />
-          <Route path="/sign-up" element={<SignupForm />} />
-        </Route>
+    <ErrorBoundary>
+      <main className="flex h-screen">
+        <Routes>
+          {/* Public Routes */}
+          <Route element={<AuthLayout />}>
+            <Route path="/Homepage" element={<HomePage />} />
+            <Route path="/sign-in" element={<SigninForm />} />
+            <Route path="/sign-up" element={<SignupForm />} />
+          </Route>
 
-        {/* Private Routes */}
-        <Route element={<RootLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/Homepage" element={<HomePage />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/saved" element={<Saved />} />
-          <Route path="/all-users" element={<AllUsers />} />
-          <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/update-post/:id" element={<EditPost />} />
-          <Route path="/posts/:id" element={<PostDetails />} />
-          <Route path="/profile/:id/*" element={<Profile />} />
-          <Route path="/update-profile/:id" element={<UpdateProfile />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-          <Route path="/licensing" element={<Licensing />} />
-          <Route path="/termsandconditions" element={<TermsandConditions />} />
-        </Route>
+          {/* Private Routes */}
+          <Route element={<RootLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/Homepage" element={<HomePage />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/saved" element={<Saved />} />
+            <Route path="/all-users" element={<AllUsers />} />
+            <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/update-post/:id" element={<EditPost />} />
+            <Route path="/posts/:id" element={<PostDetails />} />
+            <Route path="/profile/:id/*" element={<Profile />} />
+            <Route path="/update-profile/:id" element={<UpdateProfile />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/licensing" element={<Licensing />} />
+            <Route path="/termsandconditions" element={<TermsandConditions />} />
+          </Route>
 
-        {/* 404 Page */}
-        <Route path="*" element={<Custom404 />} />
-      </Routes>
-      <Toaster />
-    </main>
+          {/* 404 Page */}
+          <Route path="*" element={<Custom404 />} />
+        </Routes>
+        <Toaster />
+      </main>
+    </ErrorBoundary>
   );
 };
 

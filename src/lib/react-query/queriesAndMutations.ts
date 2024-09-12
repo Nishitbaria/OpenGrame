@@ -52,8 +52,12 @@ export const useSignInAccount = () => {
 
 ///this function is use to sign out the user
 export const useSignOutAccount = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: signOutAccount,
+    onSuccess: () => {
+      queryClient.clear(); // Clear all queries after logout
+    },
   });
 };
 

@@ -1,8 +1,10 @@
+import React from 'react';
 import GridPostList from "@/components/shared/GridPostList";
 import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetUserById } from "@/lib/react-query/queriesAndMutations";
+import { useEffect } from 'react';
 import {
   Route,
   Routes,
@@ -32,19 +34,22 @@ const Profile = () => {
   const { user } = useUserContext();
   const { pathname } = useLocation();
 
-  const { data: currentUser } = useGetUserById(id || "");
+  const { data: currentUser, isLoading, isError } = useGetUserById(id || "");
 
-  if (!currentUser)
-    return (
-      <div className="w-full h-full flex-center">
-        <Loader />
-      </div>
-    );
+  useEffect(() => {
+    // Refetch user data when the id changes
+    if (id) {
+      // You might need to implement a refetch function in your useGetUserById hook
+      // refetch();
+    }
+  }, [id]);
+
+  if (isLoading) return <Loader />;
+  if (isError || !currentUser) return <div>Error loading user profile</div>;
 
   const copyToClipboard = async () => {
     return await window.navigator.clipboard.writeText(window.location.href);
   }
-
 
   return (
     <div className="profile-container">
@@ -74,12 +79,16 @@ const Profile = () => {
             </div>
 
             <p className="max-w-screen-sm text-center small-medium md:base-medium xl:text-left mt-7">
-              {currentUser.bio.split('\n').map((line: String, index: Number) => (
-                <>
-                  {line}
-                  {index !== currentUser.bio.split('\n').length - 1 && <br />} {/* Add <br> except for the last line */}
-                </>
-              ))}
+              {currentUser.bio ? (
+                currentUser.bio.split('\n').map((line: string, index: number) => (
+                  <React.Fragment key={index}>
+                    {line}
+                    {index !== currentUser.bio.split('\n').length - 1 && <br />}
+                  </React.Fragment>
+                ))
+              ) : (
+                "No bio available"
+              )}
             </p>
           </div>
 
