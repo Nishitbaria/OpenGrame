@@ -91,9 +91,12 @@ const Share = ({ shareurl, handleShare }: ShareProps) => {
         <div>
           <p className="mb-4 text-md ">Share this Post via</p>
           <div className="flex flex-wrap items-center justify-between gap-4">
-            {data.map((ele) => {
+            {data.map((ele, index) => {
               return (
-                <div className="flex flex-col items-center justify-between gap-2 cursor-pointer">
+                <div
+                  key={ele.label}
+                  className="flex flex-col items-center justify-between gap-2 cursor-pointer"
+                >
                   {ele.icon}
                   <span className="text-sm capitalize">{ele.label}</span>
                 </div>

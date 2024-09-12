@@ -41,7 +41,7 @@ const Profile = () => {
       </div>
     );
 
-  const copyToClipboard = async() => {
+  const copyToClipboard = async () => {
     return await window.navigator.clipboard.writeText(window.location.href);
   }
 
