@@ -7,6 +7,11 @@ import StoriesSkeleton from "./Skeletons/stories-skeleton"
 export default function StoriesContainer() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { data, isLoading, isError } = useGetAllStories()
+
+  console.log("================ Data ================", data)
+
+
+
   const { user: currentUser } = useUserContext()
 
   const scrollLeft = () => {

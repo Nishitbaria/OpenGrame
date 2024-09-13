@@ -556,6 +556,8 @@ export async function getUserPosts(userId?: string) {
 
 // STORY APIS
 
+import { Models } from 'appwrite';
+
 export async function getAllStories(): Promise<
   {
     id: string;
@@ -566,15 +568,15 @@ export async function getAllStories(): Promise<
   }[]
 > {
   try {
-    const usersResponse: any = await databases.listDocuments(
+    const usersResponse: Models.DocumentList<Models.Document> = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId
     );
 
-    const users: any[] = usersResponse.documents;
+    const users = usersResponse.documents;
     const storiesPromises: Promise<
       { image_url: string; isOld: boolean; createdDate: string }[]
-    >[] = users.map(async (user: any) => {
+    >[] = users.map(async (user: Models.Document) => {
       const storiesResponse = await databases.listDocuments(
         appwriteConfig.databaseId,
         appwriteConfig.storyDataCollectionId,
@@ -586,7 +588,7 @@ export async function getAllStories(): Promise<
         image_url: string;
         createdDate: string;
         isOld: boolean;
-      }[] = storiesResponse.documents.map((doc: any) => {
+      }[] = storiesResponse.documents.map((doc: Models.Document) => {
         const createdDate = new Date(doc.createdDate);
         const currentDate = new Date();
 
@@ -606,7 +608,7 @@ export async function getAllStories(): Promise<
     });
 
     const allStories = await Promise.all(storiesPromises);
-    const result = users.map((user: any, index: number) => ({
+    const result = users.map((user: Models.Document, index: number) => ({
       id: user.$id,
       name: user.name,
       username: user.username,
@@ -655,5 +657,77 @@ export async function CreateStory(story: NewStory) {
     return newStory;
   } catch (error) {
     console.log(error);
+  }
+}
+
+
+// follow user function and unfollow user function
+export async function followUser(followerId: string, followingId: string) {
+  try {
+    // Update the following array for the follower
+    const updatedFollower = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      followerId,
+      { following: [followingId] }
+    );
+
+    // Update the followers array for the user being followed
+    const updatedFollowing = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      followingId,
+      { followers: [followerId] }
+    );
+
+    return { updatedFollower, updatedFollowing };
+  } catch (error) {
+    console.error("Error following user:", error);
+    throw error;
+  }
+}
+
+export async function unfollowUser(followerId: string, followingId: string) {
+  try {
+    // Get the current follower document
+    const follower = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      followerId
+    );
+
+    // Get the current following document
+    const following = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      followingId
+    );
+
+    // Remove followingId from the follower's following array
+    const updatedFollowerFollowing = follower.following.filter((id: string) => id !== followingId);
+
+    // Remove followerId from the following user's followers array
+    const updatedFollowingFollowers = following.followers.filter((id: string) => id !== followerId);
+
+    // Update the follower document
+    const updatedFollower = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      followerId,
+      { following: updatedFollowerFollowing }
+    );
+
+    // Update the following document
+    const updatedFollowing = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      followingId,
+      { followers: updatedFollowingFollowers }
+    );
+
+    return { updatedFollower, updatedFollowing };
+  } catch (error) {
+    console.error("Error unfollowing user:", error);
+    throw error;
   }
 }

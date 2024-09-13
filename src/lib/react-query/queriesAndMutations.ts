@@ -10,6 +10,7 @@ import {
   createPost,
   deletePost,
   deleteSavedPost,
+  followUser,
   getAllStories,
   getCurrentUser,
   getInfinitePosts,
@@ -24,6 +25,7 @@ import {
   searchUsers,
   signInAccount,
   signOutAccount,
+  unfollowUser,
   updatePost,
   updateUser,
 } from "../appwrite/api";
@@ -303,6 +305,48 @@ export const useCreateStory = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.CREATE_STORY],
+      });
+    },
+  });
+};
+
+// Follow User and 
+
+// Add these hooks at the end of the file
+
+export const useFollowUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ followerId, followingId }: { followerId: string; followingId: string }) =>
+      followUser(followerId, followingId),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_USER_BY_ID, variables.followerId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_USER_BY_ID, variables.followingId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_CURRENT_USER],
+      });
+    },
+  });
+};
+
+export const useUnfollowUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ followerId, followingId }: { followerId: string; followingId: string }) =>
+      unfollowUser(followerId, followingId),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_USER_BY_ID, variables.followerId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_USER_BY_ID, variables.followingId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_CURRENT_USER],
       });
     },
   });

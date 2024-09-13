@@ -11,6 +11,10 @@ export default function Home() {
     isError: isErrorPosts,
   } = useGetRecentPosts()
 
+
+  console.log("================ Posts ================", posts?.total)
+
+
   if (isErrorPosts) {
     return (
       <div className="flex flex-1">

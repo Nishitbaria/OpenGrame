@@ -3,7 +3,7 @@ import GridPostList from "@/components/shared/GridPostList";
 import Loader from "@/components/shared/Loader";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetUserById } from "@/lib/react-query/queriesAndMutations";
+import { useGetUserById, useFollowUser, useUnfollowUser } from "@/lib/react-query/queriesAndMutations";
 import { useEffect } from 'react';
 import {
   Route,
@@ -16,6 +16,7 @@ import {
 import LikedPosts from "./LikedPosts";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
 interface StabBlockProps {
   value: string | number;
@@ -33,8 +34,11 @@ const Profile = () => {
   const { id } = useParams();
   const { user } = useUserContext();
   const { pathname } = useLocation();
+  const { toast } = useToast();
 
   const { data: currentUser, isLoading, isError } = useGetUserById(id || "");
+  const { mutate: followUser } = useFollowUser();
+  const { mutate: unfollowUser } = useUnfollowUser();
 
   useEffect(() => {
     // Refetch user data when the id changes
@@ -48,8 +52,54 @@ const Profile = () => {
   if (isError || !currentUser) return <div>Error loading user profile</div>;
 
   const copyToClipboard = async () => {
-    return await window.navigator.clipboard.writeText(window.location.href);
+    await window.navigator.clipboard.writeText(window.location.href);
+    toast({
+      title: "Copied!",
+      description: "Profile link copied to clipboard.",
+    });
   }
+
+  const handleFollowAction = () => {
+    if (currentUser.followers.includes(user.id)) {
+      unfollowUser(
+        { followerId: user.id, followingId: currentUser.$id },
+        {
+          onSuccess: () => {
+            toast({
+              title: "Unfollowed",
+              description: `You have unfollowed ${currentUser.name}.`,
+            });
+          },
+          onError: () => {
+            toast({
+              title: "Error",
+              description: "Failed to unfollow. Please try again.",
+              variant: "destructive",
+            });
+          },
+        }
+      );
+    } else {
+      followUser(
+        { followerId: user.id, followingId: currentUser.$id },
+        {
+          onSuccess: () => {
+            toast({
+              title: "Followed",
+              description: `You are now following ${currentUser.name}.`,
+            });
+          },
+          onError: () => {
+            toast({
+              title: "Error",
+              description: "Failed to follow. Please try again.",
+              variant: "destructive",
+            });
+          },
+        }
+      );
+    }
+  };
 
   return (
     <div className="profile-container">
@@ -73,9 +123,8 @@ const Profile = () => {
             </div>
 
             <div className="z-20 flex flex-wrap items-center justify-center gap-8 mt-10 xl:justify-start">
-              <StatBlock value={currentUser.posts.length} label="Posts" />
-              <StatBlock value={0} label="Followers" />
-              <StatBlock value={0} label="Following" />
+              <StatBlock value={currentUser.followers.length} label="Followers" />
+              <StatBlock value={currentUser.following.length} label="Following" />
             </div>
 
             <p className="max-w-screen-sm text-center small-medium md:base-medium xl:text-left mt-7">
@@ -104,7 +153,7 @@ const Profile = () => {
                   alt="edit"
                   width={20}
                   height={20}
-                  className="mr-2" // Add consistent spacing after the img tag
+                  className="mr-2"
                 />
                 <p className="flex whitespace-nowrap small-medium">
                   Edit Profile
@@ -121,7 +170,7 @@ const Profile = () => {
                     alt="edit"
                     width={20}
                     height={20}
-                    className="mr-2" // Add consistent spacing after the img tag
+                    className="mr-2"
                   />
                   <p className="flex whitespace-nowrap small-medium">
                     Share Profile
@@ -140,15 +189,19 @@ const Profile = () => {
                       alt="edit"
                       width={20}
                       height={20}
-                      className="mr-2" // Add consistent spacing after the img tag
+                      className="mr-2"
                     />
                   </Button>
                 </div>
               </DialogContent>
             </Dialog>
             <div className={`${user.id === id && "hidden"}`}>
-              <Button type="button" className="px-8 shad-button_primary">
-                Follow
+              <Button
+                type="button"
+                className="px-8 shad-button_primary"
+                onClick={handleFollowAction}
+              >
+                {currentUser.followers.includes(user.id) ? 'Unfollow' : 'Follow'}
               </Button>
             </div>
           </div>
@@ -167,7 +220,7 @@ const Profile = () => {
               alt="posts"
               width={20}
               height={20}
-              className="mr-2" // Add consistent spacing after the img tag
+              className="mr-2"
             />
             Posts
           </Link>
@@ -181,7 +234,7 @@ const Profile = () => {
               alt="like"
               width={20}
               height={20}
-              className="mr-2" // Add consistent spacing after the img tag
+              className="mr-2"
             />
             Liked Posts
           </Link>

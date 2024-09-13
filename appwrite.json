@@ -1,393 +1,397 @@
 {
-  "projectId": "654765269477866dca77",
-  "projectName": "",
-  "databases": [
-    {
-      "$id": "default",
-      "name": "default",
-      "$createdAt": "2023-04-07T22:30:01.152+00:00",
-      "$updatedAt": "2023-04-07T22:32:50.830+00:00"
-    },
-    {
-      "$id": "3j22cy28uc3",
-      "name": "opengrame",
-      "$createdAt": "2024-05-10T04:52:28.341+00:00",
-      "$updatedAt": "2024-05-10T04:52:28.341+00:00",
-      "enabled": true
-    }
-  ],
-  "collections": [
-    {
-      "$id": "65479a1224b7d12ccb6e",
-      "$createdAt": "2023-11-05T13:35:14.216+00:00",
-      "$updatedAt": "2023-11-05T13:35:27.097+00:00",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "3j22cy28uc3",
-      "name": "Posts",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
+    "projectId": "654765269477866dca77",
+    "projectName": "",
+    "databases": [
         {
-          "key": "creator",
-          "type": "relationship",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "relatedCollection": "65479b3f3ff36d0c3fa6",
-          "relationType": "manyToOne",
-          "twoWay": true,
-          "twoWayKey": "posts",
-          "onDelete": "setNull",
-          "side": "parent"
+            "$id": "default",
+            "name": "default",
+            "$createdAt": "2023-04-07T22:30:01.152+00:00",
+            "$updatedAt": "2023-04-07T22:32:50.830+00:00"
         },
         {
-          "key": "likes",
-          "type": "relationship",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "relatedCollection": "65479b3f3ff36d0c3fa6",
-          "relationType": "manyToMany",
-          "twoWay": true,
-          "twoWayKey": "liked",
-          "onDelete": "setNull",
-          "side": "parent"
-        },
-        {
-          "key": "caption",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "size": 2200,
-          "default": null
-        },
-        {
-          "key": "tags",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": true,
-          "size": 2200,
-          "default": null
-        },
-        {
-          "key": "imageUrl",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": true,
-          "array": false,
-          "format": "url",
-          "default": null
-        },
-        {
-          "key": "imageId",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": true,
-          "array": false,
-          "size": 2199,
-          "default": null
-        },
-        {
-          "key": "location",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "size": 2199,
-          "default": null
-        },
-        {
-          "key": "save",
-          "type": "relationship",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "relatedCollection": "65479a44782ab930d6f3",
-          "relationType": "manyToOne",
-          "twoWay": true,
-          "twoWayKey": "post",
-          "onDelete": "setNull",
-          "side": "child"
+            "$id": "654795335786b4c38fb9",
+            "name": "opengrame",
+            "$createdAt": "2024-05-10T04:52:28.341+00:00",
+            "$updatedAt": "2024-05-10T04:52:28.341+00:00",
+            "enabled": true
         }
-      ],
-      "indexes": [
+    ],
+    "collections": [
         {
-          "key": "caption",
-          "type": "fulltext",
-          "status": "available",
-          "error": "",
-          "attributes": ["caption"],
-          "orders": ["DESC"]
+            "$id": "65479a1224b7d12ccb6e",
+            "$createdAt": "2023-11-05T13:35:14.216+00:00",
+            "$updatedAt": "2023-11-05T13:35:27.097+00:00",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "3j22cy28uc3",
+            "name": "Posts",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "creator",
+                    "type": "relationship",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "65479b3f3ff36d0c3fa6",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "posts",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                },
+                {
+                    "key": "likes",
+                    "type": "relationship",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "65479b3f3ff36d0c3fa6",
+                    "relationType": "manyToMany",
+                    "twoWay": true,
+                    "twoWayKey": "liked",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                },
+                {
+                    "key": "caption",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "size": 2200,
+                    "default": null
+                },
+                {
+                    "key": "tags",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": true,
+                    "size": 2200,
+                    "default": null
+                },
+                {
+                    "key": "imageUrl",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "format": "url",
+                    "default": null
+                },
+                {
+                    "key": "imageId",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 2199,
+                    "default": null
+                },
+                {
+                    "key": "location",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "size": 2199,
+                    "default": null
+                },
+                {
+                    "key": "save",
+                    "type": "relationship",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "65479a44782ab930d6f3",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "post",
+                    "onDelete": "setNull",
+                    "side": "child"
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "caption",
+                    "type": "fulltext",
+                    "status": "available",
+                    "error": "",
+                    "attributes": [
+                        "caption"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                }
+            ]
+        },
+        {
+            "$id": "65479a44782ab930d6f3",
+            "$createdAt": "2023-11-05T13:36:04.493+00:00",
+            "$updatedAt": "2023-11-05T13:36:37.805+00:00",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "3j22cy28uc3",
+            "name": "Saves",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "user",
+                    "type": "relationship",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "65479b3f3ff36d0c3fa6",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "save",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                },
+                {
+                    "key": "post",
+                    "type": "relationship",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "65479a1224b7d12ccb6e",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "save",
+                    "onDelete": "setNull",
+                    "side": "parent"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "65479b3f3ff36d0c3fa6",
+            "$createdAt": "2023-11-05T13:40:15.262+00:00",
+            "$updatedAt": "2023-11-07T12:23:58.940+00:00",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "3j22cy28uc3",
+            "name": "Users",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "posts",
+                    "type": "relationship",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "65479a1224b7d12ccb6e",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "creator",
+                    "onDelete": "setNull",
+                    "side": "child"
+                },
+                {
+                    "key": "liked",
+                    "type": "relationship",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "65479a1224b7d12ccb6e",
+                    "relationType": "manyToMany",
+                    "twoWay": true,
+                    "twoWayKey": "likes",
+                    "onDelete": "setNull",
+                    "side": "child"
+                },
+                {
+                    "key": "name",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "size": 2199,
+                    "default": null
+                },
+                {
+                    "key": "username",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "size": 2200,
+                    "default": null
+                },
+                {
+                    "key": "accountId",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 2199,
+                    "default": null
+                },
+                {
+                    "key": "email",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "format": "email",
+                    "default": null
+                },
+                {
+                    "key": "bio",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "size": 2200,
+                    "default": null
+                },
+                {
+                    "key": "imagId",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "size": 2200,
+                    "default": null
+                },
+                {
+                    "key": "imageUrl",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "format": "url",
+                    "default": null
+                },
+                {
+                    "key": "save",
+                    "type": "relationship",
+                    "status": "available",
+                    "error": "",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "65479a44782ab930d6f3",
+                    "relationType": "manyToOne",
+                    "twoWay": true,
+                    "twoWayKey": "user",
+                    "onDelete": "setNull",
+                    "side": "child"
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "664c1dba0005c3bb2eae",
+            "$createdAt": "2024-05-21T04:06:17.989+00:00",
+            "$updatedAt": "2024-05-26T03:48:32.925+00:00",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "databaseId": "654795335786b4c38fb9",
+            "name": "Stories",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [
+                {
+                    "key": "accountId",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "size": 25,
+                    "default": null
+                },
+                {
+                    "key": "image_url",
+                    "type": "string",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "format": "url",
+                    "default": null
+                },
+                {
+                    "key": "createdDate",
+                    "type": "datetime",
+                    "status": "available",
+                    "error": "",
+                    "required": true,
+                    "array": false,
+                    "format": "",
+                    "default": null
+                }
+            ],
+            "indexes": []
         }
-      ]
-    },
-    {
-      "$id": "65479a44782ab930d6f3",
-      "$createdAt": "2023-11-05T13:36:04.493+00:00",
-      "$updatedAt": "2023-11-05T13:36:37.805+00:00",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "3j22cy28uc3",
-      "name": "Saves",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
+    ],
+    "buckets": [
         {
-          "key": "user",
-          "type": "relationship",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "relatedCollection": "65479b3f3ff36d0c3fa6",
-          "relationType": "manyToOne",
-          "twoWay": true,
-          "twoWayKey": "save",
-          "onDelete": "setNull",
-          "side": "parent"
-        },
-        {
-          "key": "post",
-          "type": "relationship",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "relatedCollection": "65479a1224b7d12ccb6e",
-          "relationType": "manyToOne",
-          "twoWay": true,
-          "twoWayKey": "save",
-          "onDelete": "setNull",
-          "side": "parent"
+            "$id": "65478ceca6d8a49b3cf1",
+            "$createdAt": "2023-11-05T12:39:08.684+00:00",
+            "$updatedAt": "2023-11-09T10:55:09.867+00:00",
+            "$permissions": [
+                "create(\"any\")",
+                "read(\"any\")",
+                "update(\"any\")",
+                "delete(\"any\")"
+            ],
+            "fileSecurity": false,
+            "name": "media",
+            "enabled": true,
+            "maximumFileSize": 50000,
+            "allowedFileExtensions": [
+                "jpg",
+                "png",
+                "svg",
+                "gif",
+                "html",
+                "pdf",
+                "mp4"
+            ],
+            "compression": "none",
+            "encryption": true,
+            "antivirus": true
         }
-      ],
-      "indexes": []
-    },
-    {
-      "$id": "65479b3f3ff36d0c3fa6",
-      "$createdAt": "2023-11-05T13:40:15.262+00:00",
-      "$updatedAt": "2023-11-07T12:23:58.940+00:00",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "3j22cy28uc3",
-      "name": "Users",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
-        {
-          "key": "posts",
-          "type": "relationship",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "relatedCollection": "65479a1224b7d12ccb6e",
-          "relationType": "manyToOne",
-          "twoWay": true,
-          "twoWayKey": "creator",
-          "onDelete": "setNull",
-          "side": "child"
-        },
-        {
-          "key": "liked",
-          "type": "relationship",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "relatedCollection": "65479a1224b7d12ccb6e",
-          "relationType": "manyToMany",
-          "twoWay": true,
-          "twoWayKey": "likes",
-          "onDelete": "setNull",
-          "side": "child"
-        },
-        {
-          "key": "name",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "size": 2199,
-          "default": null
-        },
-        {
-          "key": "username",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "size": 2200,
-          "default": null
-        },
-        {
-          "key": "accountId",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": true,
-          "array": false,
-          "size": 2199,
-          "default": null
-        },
-        {
-          "key": "email",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": true,
-          "array": false,
-          "format": "email",
-          "default": null
-        },
-        {
-          "key": "bio",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "size": 2200,
-          "default": null
-        },
-        {
-          "key": "imagId",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "size": 2200,
-          "default": null
-        },
-        {
-          "key": "imageUrl",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": true,
-          "array": false,
-          "format": "url",
-          "default": null
-        },
-        {
-          "key": "save",
-          "type": "relationship",
-          "status": "available",
-          "error": "",
-          "required": false,
-          "array": false,
-          "relatedCollection": "65479a44782ab930d6f3",
-          "relationType": "manyToOne",
-          "twoWay": true,
-          "twoWayKey": "user",
-          "onDelete": "setNull",
-          "side": "child"
-        }
-      ],
-      "indexes": []
-    },
-    {
-      "$id": "664c1dba0005c3bb2eae",
-      "$createdAt": "2024-05-21T04:06:17.989+00:00",
-      "$updatedAt": "2024-05-26T03:48:32.925+00:00",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "databaseId": "654795335786b4c38fb9",
-      "name": "Stories",
-      "enabled": true,
-      "documentSecurity": false,
-      "attributes": [
-        {
-          "key": "accountId",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": true,
-          "array": false,
-          "size": 25,
-          "default": null
-        },
-        {
-          "key": "image_url",
-          "type": "string",
-          "status": "available",
-          "error": "",
-          "required": true,
-          "array": false,
-          "format": "url",
-          "default": null
-        },
-        {
-          "key": "createdDate",
-          "type": "datetime",
-          "status": "available",
-          "error": "",
-          "required": true,
-          "array": false,
-          "format": "",
-          "default": null
-        }
-      ],
-      "indexes": []
-    }
-  ],
-  "buckets": [
-    {
-      "$id": "65478ceca6d8a49b3cf1",
-      "$createdAt": "2023-11-05T12:39:08.684+00:00",
-      "$updatedAt": "2023-11-09T10:55:09.867+00:00",
-      "$permissions": [
-        "create(\"any\")",
-        "read(\"any\")",
-        "update(\"any\")",
-        "delete(\"any\")"
-      ],
-      "fileSecurity": false,
-      "name": "media",
-      "enabled": true,
-      "maximumFileSize": 50000,
-      "allowedFileExtensions": [
-        "jpg",
-        "png",
-        "svg",
-        "gif",
-        "html",
-        "pdf",
-        "mp4"
-      ],
-      "compression": "none",
-      "encryption": true,
-      "antivirus": true
-    }
-  ]
+    ]
 }
