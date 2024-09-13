@@ -40,6 +40,12 @@ const Profile = () => {
   const { mutate: followUser } = useFollowUser();
   const { mutate: unfollowUser } = useUnfollowUser();
 
+
+
+  console.log(currentUser, "=========");
+  console.log(user, "=========");
+
+
   useEffect(() => {
     // Refetch user data when the id changes
     if (id) {
@@ -125,6 +131,7 @@ const Profile = () => {
             <div className="z-20 flex flex-wrap items-center justify-center gap-8 mt-10 xl:justify-start">
               <StatBlock value={currentUser.followers.length} label="Followers" />
               <StatBlock value={currentUser.following.length} label="Following" />
+              <StatBlock value={currentUser.posts.length} label="Posts" />
             </div>
 
             <p className="max-w-screen-sm text-center small-medium md:base-medium xl:text-left mt-7">
@@ -247,7 +254,7 @@ const Profile = () => {
           element={<GridPostList posts={currentUser.posts} showUser={false} />}
         />
         {currentUser.$id === user.id && (
-          <Route path="/liked-posts" element={<LikedPosts />} />
+          <Route path="/liked-posts" element={<LikedPosts likedPosts={currentUser.liked} />} />
         )}
       </Routes>
       <Outlet />

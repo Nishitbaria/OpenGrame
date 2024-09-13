@@ -449,9 +449,15 @@ export async function getUserById(userId: string) {
 
     if (!user) throw Error;
 
-    return user;
+    // Ensure followers and following are arrays
+    return {
+      ...user,
+      followers: user.followers || [],
+      following: user.following || [],
+    };
   } catch (error) {
     console.log(error);
+    return null;
   }
 }
 
@@ -661,23 +667,41 @@ export async function CreateStory(story: NewStory) {
 }
 
 
-// follow user function and unfollow user function
+// Update the followUser function
 export async function followUser(followerId: string, followingId: string) {
   try {
-    // Update the following array for the follower
+    // Get current follower and following documents
+    const follower = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      followerId
+    );
+    const following = await databases.getDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      followingId
+    );
+
+    // Add followingId to follower's following array if not already present
+    const updatedFollowerFollowing = [...new Set([...follower.following, followingId])];
+
+    // Add followerId to following's followers array if not already present
+    const updatedFollowingFollowers = [...new Set([...following.followers, followerId])];
+
+    // Update the follower document
     const updatedFollower = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
       followerId,
-      { following: [followingId] }
+      { following: updatedFollowerFollowing }
     );
 
-    // Update the followers array for the user being followed
+    // Update the following document
     const updatedFollowing = await databases.updateDocument(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
       followingId,
-      { followers: [followerId] }
+      { followers: updatedFollowingFollowers }
     );
 
     return { updatedFollower, updatedFollowing };
@@ -687,26 +711,25 @@ export async function followUser(followerId: string, followingId: string) {
   }
 }
 
+// Update the unfollowUser function
 export async function unfollowUser(followerId: string, followingId: string) {
   try {
-    // Get the current follower document
+    // Get current follower and following documents
     const follower = await databases.getDocument(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
       followerId
     );
-
-    // Get the current following document
     const following = await databases.getDocument(
       appwriteConfig.databaseId,
       appwriteConfig.userCollectionId,
       followingId
     );
 
-    // Remove followingId from the follower's following array
+    // Remove followingId from follower's following array
     const updatedFollowerFollowing = follower.following.filter((id: string) => id !== followingId);
 
-    // Remove followerId from the following user's followers array
+    // Remove followerId from following's followers array
     const updatedFollowingFollowers = following.followers.filter((id: string) => id !== followerId);
 
     // Update the follower document
