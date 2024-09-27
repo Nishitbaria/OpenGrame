@@ -6,6 +6,7 @@ import {
   INewUser,
   IUpdateUser,
   NewStory,
+  User,
 } from "@/types";
 import { ONE_DAY_IN_MS } from "@/constants";
 
@@ -439,7 +440,7 @@ export async function searchUsers(searchTerm: string) {
 }
 
 // ============================== GET USER BY ID
-export async function getUserById(userId: string) {
+export async function getUserById(userId: string): Promise<User | null> {
   try {
     const user = await databases.getDocument(
       appwriteConfig.databaseId,
@@ -449,12 +450,27 @@ export async function getUserById(userId: string) {
 
     if (!user) throw Error;
 
-    // Ensure followers and following are arrays
-    return {
-      ...user,
+    // Ensure all required properties are present
+    const userWithDefaults: User = {
+      $id: user.$id,
+      $createdAt: user.$createdAt,
+      $updatedAt: user.$updatedAt,
+      $collectionId: user.$collectionId,
+      $databaseId: user.$databaseId,
+      $permissions: user.$permissions,
+      name: user.name || '',
+      username: user.username || '',
+      email: user.email || '',
+      imageUrl: user.imageUrl || '',
+      imageId: user.imageId,
+      bio: user.bio || '',
       followers: user.followers || [],
       following: user.following || [],
+      posts: user.posts || [],
+      liked: user.liked || [],
     };
+
+    return userWithDefaults;
   } catch (error) {
     console.log(error);
     return null;

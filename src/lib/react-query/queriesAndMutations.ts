@@ -35,6 +35,7 @@ import {
   IUpdatePost,
   IUpdateUser,
   NewStory,
+  User,
 } from "../../types/index.ts";
 import { QUERY_KEYS } from "./queryKeys.ts";
 
@@ -92,9 +93,10 @@ export const useLikePost = () => {
       postId: string;
       likesArray: string[];
     }) => likePost(postId, likesArray),
-    onSuccess: (data) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEYS.GET_POST_BY_ID, data?.$id],
+        //@ts-ignore
+        queryKey: [QUERY_KEYS.GET_POST_BY_ID, variables?.$id],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_RECENT_POSTS],
@@ -234,7 +236,7 @@ export const useSearchUsers = (searchTerm: string) => {
 };
 
 export const useGetUserById = (userId: string) => {
-  return useQuery({
+  return useQuery<User | null>({
     queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
     queryFn: () => getUserById(userId),
     enabled: !!userId,
@@ -319,7 +321,7 @@ export const useFollowUser = () => {
   return useMutation({
     mutationFn: ({ followerId, followingId }: { followerId: string; followingId: string }) =>
       followUser(followerId, followingId),
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER_BY_ID, variables.followerId],
       });
@@ -338,7 +340,7 @@ export const useUnfollowUser = () => {
   return useMutation({
     mutationFn: ({ followerId, followingId }: { followerId: string; followingId: string }) =>
       unfollowUser(followerId, followingId),
-    onSuccess: (data, variables) => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEYS.GET_USER_BY_ID, variables.followerId],
       });

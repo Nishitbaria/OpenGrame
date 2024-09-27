@@ -62,3 +62,22 @@ export type NewStory = {
   accountId: string;
   file: File[];
 };
+
+export interface User {
+  $id: string;
+  $createdAt: string;
+  $updatedAt: string;
+  $collectionId: string;
+  $databaseId: string;
+  $permissions: string[];
+  name: string;
+  username: string;
+  email: string;
+  imageUrl: string;
+  imageId?: string;
+  bio: string;
+  followers: string[];
+  following: string[];
+  posts?: any[];
+  liked?: any[];
+}

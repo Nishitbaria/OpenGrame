@@ -18,6 +18,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 
+
 interface StabBlockProps {
   value: string | number;
   label: string;
@@ -37,20 +38,12 @@ const Profile = () => {
   const { toast } = useToast();
 
   const { data: currentUser, isLoading, isError } = useGetUserById(id || "");
-  const { mutate: followUser } = useFollowUser();
-  const { mutate: unfollowUser } = useUnfollowUser();
-
-
-
-  console.log(currentUser, "=========");
-  console.log(user, "=========");
-
+  const followUser = useFollowUser();
+  const unfollowUser = useUnfollowUser();
 
   useEffect(() => {
-    // Refetch user data when the id changes
     if (id) {
-      // You might need to implement a refetch function in your useGetUserById hook
-      // refetch();
+      // The refetch will happen automatically due to the change in query key
     }
   }, [id]);
 
@@ -66,45 +59,30 @@ const Profile = () => {
   }
 
   const handleFollowAction = () => {
-    if (currentUser.followers.includes(user.id)) {
-      unfollowUser(
-        { followerId: user.id, followingId: currentUser.$id },
-        {
-          onSuccess: () => {
-            toast({
-              title: "Unfollowed",
-              description: `You have unfollowed ${currentUser.name}.`,
-            });
-          },
-          onError: () => {
-            toast({
-              title: "Error",
-              description: "Failed to unfollow. Please try again.",
-              variant: "destructive",
-            });
-          },
-        }
-      );
-    } else {
-      followUser(
-        { followerId: user.id, followingId: currentUser.$id },
-        {
-          onSuccess: () => {
-            toast({
-              title: "Followed",
-              description: `You are now following ${currentUser.name}.`,
-            });
-          },
-          onError: () => {
-            toast({
-              title: "Error",
-              description: "Failed to follow. Please try again.",
-              variant: "destructive",
-            });
-          },
-        }
-      );
-    }
+    if (!currentUser || !user) return;
+
+    const action = currentUser.followers.includes(user.id) ? unfollowUser : followUser;
+
+    action.mutate(
+      { followerId: user.id, followingId: currentUser.$id },
+      {
+        onSuccess: () => {
+          toast({
+            title: currentUser.followers.includes(user.id) ? "Unfollowed" : "Followed",
+            description: currentUser.followers.includes(user.id)
+              ? `You have unfollowed ${currentUser.name}.`
+              : `You are now following ${currentUser.name}.`,
+          });
+        },
+        onError: () => {
+          toast({
+            title: "Error",
+            description: "Failed to update follow status. Please try again.",
+            variant: "destructive",
+          });
+        },
+      }
+    );
   };
 
   return (
@@ -129,9 +107,9 @@ const Profile = () => {
             </div>
 
             <div className="z-20 flex flex-wrap items-center justify-center gap-8 mt-10 xl:justify-start">
-              <StatBlock value={currentUser.followers.length} label="Followers" />
-              <StatBlock value={currentUser.following.length} label="Following" />
-              <StatBlock value={currentUser.posts.length} label="Posts" />
+              <StatBlock value={currentUser?.followers?.length || 0} label="Followers" />
+              <StatBlock value={currentUser?.following?.length || 0} label="Following" />
+              <StatBlock value={currentUser?.posts?.length || 0} label="Posts" />
             </div>
 
             <p className="max-w-screen-sm text-center small-medium md:base-medium xl:text-left mt-7">
@@ -251,10 +229,15 @@ const Profile = () => {
       <Routes>
         <Route
           index
-          element={<GridPostList posts={currentUser.posts} showUser={false} />}
+          element={currentUser && currentUser.posts && (
+            <GridPostList posts={currentUser.posts} showUser={false} />
+          )}
         />
-        {currentUser.$id === user.id && (
-          <Route path="/liked-posts" element={<LikedPosts likedPosts={currentUser.liked} />} />
+        {currentUser && currentUser.$id === user.id && (
+          <Route
+            path="/liked-posts"
+            element={<LikedPosts likedPosts={currentUser.liked} />}
+          />
         )}
       </Routes>
       <Outlet />
