@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Check and Close PRs Without Linked Issues
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0 # This ensures that git history is fully fetched for proper processing
           token: ${{ secrets.GITHUB_TOKEN }}
